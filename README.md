@@ -1,3 +1,10 @@
+<!-- TO DO
+1. Add Images from contentful
+2. Create 404 Page
+3. Add Website name and change favicon {react helmet}
+4. Change slug
+ -->
+
 <!-- AUTO-GENERATED-CONTENT:START (STARTER) -->
 <p align="center">
   <a href="https://www.gatsbyjs.com">

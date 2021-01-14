@@ -13,18 +13,17 @@ const BlogPost = () => {
             cena
             createdAt(formatString: "DD MM YYYY")
             powierzchniaCalkowitaM2
-            slug
+            id
           }
         }
       }
     }
   `)
-
   return (
     <div>
       {data.allContentfulNieruchomosc.edges.map((edge) => {
         return (
-          <Link to={`/nieruchomosc/${edge.node.slug}`}>
+          <Link to={`/nieruchomosc/${edge.node.id}/${edge.node.miasto}/${edge.node.ulica}`}>
             <p> {edge.node.slug} </p>
             <p> {edge.node.miasto} </p>
             <p> {edge.node.dzielnica} </p>

@@ -10,8 +10,8 @@ import Layout from '../components/layout'
 // It is passed as a prop to the component
 
 export const query = graphql`
-  query($slug: String!) {
-    contentfulNieruchomosc(slug: {eq: $slug}) {
+  query($id: String!) {
+    contentfulNieruchomosc(id: {eq: $id}) {
       miasto
       dzielnica
       ulica

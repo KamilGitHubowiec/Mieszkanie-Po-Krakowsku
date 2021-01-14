@@ -8,7 +8,9 @@ module.exports.createPages = async ({ graphql, actions }) => {
       allContentfulNieruchomosc {
         edges {
           node {
-            slug
+            id
+            miasto
+            ulica
           }
         }
       }
@@ -18,12 +20,10 @@ module.exports.createPages = async ({ graphql, actions }) => {
   res.data.allContentfulNieruchomosc.edges.forEach((edge) => {
     createPage({
       component: blogPageTemplate, // Path to the component
-      path: `/nieruchomosc/${edge.node.slug}`, // Path where should someone access the page
-      context: { // It gives access to the additional data
-        slug: edge.node.slug
+      path: `/nieruchomosc/${edge.node.id}/${edge.node.miasto}/${edge.node.ulica}`, // Path where should someone access the page
+      context: { // Creates arguments that can be queried in graphql
+        id: edge.node.id,
       }
     })
   })
 }
-
-// + '/' + edge.node.miasto + '/' + edge.node.ulica
