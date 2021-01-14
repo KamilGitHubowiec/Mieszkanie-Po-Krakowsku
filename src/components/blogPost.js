@@ -19,6 +19,7 @@ const BlogPost = () => {
       }
     }
   `)
+
   return (
     <div>
       {data.allContentfulNieruchomosc.edges.map((edge) => {

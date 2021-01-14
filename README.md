@@ -1,6 +1,8 @@
 <!-- TO DO
-2. Create 404 Page
-3. Add Website name and change favicon {react helmet}
+  1. Style Navbar
+  2. Style Footer
+  3. Style Header
+  4. Style Blog Post on the Main Page
  -->
 
 <!-- AUTO-GENERATED-CONTENT:START (STARTER) -->

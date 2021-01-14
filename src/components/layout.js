@@ -1,4 +1,5 @@
 import React from 'react'
+import '../styles/index.scss'
 
 import Footer from './footer'
 import NavigationMenu from './navbar'

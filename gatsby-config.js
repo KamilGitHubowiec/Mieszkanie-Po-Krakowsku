@@ -5,7 +5,7 @@ module.exports = {
     
   },
   plugins: [
-    'gatsby-plugin-react-helmer',
+    'gatsby-plugin-react-helmet',
     {
       resolve: 'gatsby-source-contentful',
       options: {
@@ -21,29 +21,7 @@ module.exports = {
         name: 'images',
         path: `${__dirname}/src/images`
       }
-    }
+    },
+    'gatsby-plugin-sass'
   ]
 }
-
-  // {
-  //   resolve: 'gatsby-source-filesystem',
-  //   options: {
-  //     name: 'src',
-  //     path: `${__dirname}/src/`
-  //   }
-  // },
-  // 'gatsby-plugin-sharp',
-  // {
-  //   resolve: 'gatsby-transformer-remark',
-  //   options: {
-  //     plugins: [
-  //       'gatsby-remark-relative-images',
-  //       {
-  //         resolve: 'gatsby-remark-images',
-  //         options: {
-  //           linkImagesToOriginal: false
-  //         }
-  //       }
-  //     ]
-  //   }
-  // }
