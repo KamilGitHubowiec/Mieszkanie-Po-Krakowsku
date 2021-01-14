@@ -7,7 +7,7 @@ const Layout = (props) => {
   return (
     <div>
       <NavigationMenu />
-      { props.children }
+        { props.children }
       <Footer />
     </div>
   )

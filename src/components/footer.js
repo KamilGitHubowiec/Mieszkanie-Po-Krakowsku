@@ -14,7 +14,7 @@ const Footer = () => {
 
   return (
     <div>
-      Created by <a href="www.linkedin.com/in/kamil-góralewicz-03964a15b" target="_blank">{ data.site.siteMetadata.author }</a>, © 2020 
+      Website created by <a href="www.linkedin.com/in/kamil-góralewicz-03964a15b" target="_blank">{ data.site.siteMetadata.author }</a>, © 2020 
     </div>
   )
 }
