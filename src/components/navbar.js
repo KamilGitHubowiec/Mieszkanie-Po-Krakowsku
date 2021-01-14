@@ -3,7 +3,6 @@ import { Link } from 'gatsby'
 
 import Container from 'react-bootstrap/Container'
 import Navbar from 'react-bootstrap/Navbar'
-// import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
 
 const NavigationMenu = () => {
