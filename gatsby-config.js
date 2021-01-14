@@ -5,6 +5,7 @@ module.exports = {
     
   },
   plugins: [
+    'gatsby-plugin-react-helmer',
     {
       resolve: 'gatsby-source-contentful',
       options: {

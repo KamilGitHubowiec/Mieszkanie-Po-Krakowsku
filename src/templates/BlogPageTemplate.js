@@ -4,6 +4,7 @@ import Img from "gatsby-image"
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 
 import Layout from '../components/layout'
+import Head from '../components/head'
 
 // We dont import useStaticQuery in template files
 // In templates we have to define our query and export it
@@ -34,6 +35,7 @@ export const query = graphql`
 const BlogPageTemplate = (props) => {
   return (
     <Layout>
+      <Head title={props.data.contentfulNieruchomosc.miasto} />
       <h1>{props.data.contentfulNieruchomosc.miasto}</h1>
       <p>{props.data.contentfulNieruchomosc.createdAt}</p>
       {documentToReactComponents(JSON.parse(props.data.contentfulNieruchomosc.opis.raw))}
