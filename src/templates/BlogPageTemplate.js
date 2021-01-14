@@ -1,5 +1,6 @@
 import React from 'react'
 import { graphql } from 'gatsby' 
+import Img from "gatsby-image"
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 
 import Layout from '../components/layout'
@@ -21,6 +22,12 @@ export const query = graphql`
       opis {
         raw
       }
+      zdjecia { 
+        fixed {
+          ...GatsbyContentfulFixed
+        }
+        title
+      }
     }
   }
 `
@@ -30,6 +37,11 @@ const BlogPageTemplate = (props) => {
       <h1>{props.data.contentfulNieruchomosc.miasto}</h1>
       <p>{props.data.contentfulNieruchomosc.createdAt}</p>
       {documentToReactComponents(JSON.parse(props.data.contentfulNieruchomosc.opis.raw))}
+      {props.data.contentfulNieruchomosc.zdjecia.map((zdjecie) => {
+        return(
+          <Img fixed={zdjecie.fixed} alt={zdjecie.title} />     
+        ) 
+      })}      
     </Layout>
   )
 }
