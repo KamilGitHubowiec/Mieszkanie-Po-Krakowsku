@@ -1,29 +1,19 @@
 import React from 'react'
 import { Link } from 'gatsby'
 
-import Container from 'react-bootstrap/Container'
-import Navbar from 'react-bootstrap/Navbar'
-import Button from 'react-bootstrap/Button'
+import navbar from '../styles/navbar.module.scss'
 
 const NavigationMenu = () => {
   return (
-    <Container fluid>
-      <Navbar sticky='top'>
-        <Link to='/'>Strona główna</Link>
+    <nav className={navbar.navbar} >
+      <Link to='/'>Strona główna</Link>
 
-        <Button variant='light'>
-          <Link to='/contact'>Kontakt</Link>
-        </Button>
+      <Link to='/estates'>Nieruchomości</Link>
 
-        <Button variant='light'>
-          <Link to='/about'>O nas</Link>
-        </Button>
+      <Link to='/about'>O nas</Link>
 
-        <Button variant='light'>
-          <Link to='/services'>Usługi</Link>
-        </Button>
-      </Navbar>
-    </Container>
+      <Link to='/contact'>Kontakt</Link>
+    </nav>
   )
 }
 

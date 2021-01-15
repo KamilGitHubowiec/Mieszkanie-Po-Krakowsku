@@ -5,10 +5,10 @@ import Img from "gatsby-image"
 const Header = () => {
   const data = useStaticQuery(graphql`
     query {
-      file (relativePath: { eq: "homeBackground.png"}) {
+      file (relativePath: { eq: "homeBackground.jpg"}) {
         childImageSharp {
-          fixed {
-            ...GatsbyImageSharpFixed
+          fluid {
+            ...GatsbyImageSharpFluid
           }
         }
         name
@@ -18,7 +18,7 @@ const Header = () => {
 
   return (
     <div>
-      <Img fixed={data.file.childImageSharp.fixed} alt={data.file.name} />
+      <Img fluid={data.file.childImageSharp.fluid} alt={data.file.name} />
     </div>
   )
 }
