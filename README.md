@@ -1,8 +1,8 @@
 <!-- TO DO
-  1. Style Navbar
   2. Style Footer
   3. Style Header
   4. Style Blog Post on the Main Page
+  5. Create Hamburger menu for smaller devices
  -->
 
 <!-- AUTO-GENERATED-CONTENT:START (STARTER) -->

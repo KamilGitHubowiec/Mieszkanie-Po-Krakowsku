@@ -5,14 +5,24 @@ import navbar from '../styles/navbar.module.scss'
 
 const NavigationMenu = () => {
   return (
-    <nav className={navbar.navbar} >
-      <Link to='/'>Strona główna</Link>
+    <nav className={navbar.nav} >
+      <Link to='/'>Logo</Link>
 
-      <Link to='/estates'>Nieruchomości</Link>
+      <div className={navbar.links}>
 
-      <Link to='/about'>O nas</Link>
+        <div className={navbar.link}>
+          <Link to='/estates'>NIERUCHOMOŚCI</Link>
+        </div>
 
-      <Link to='/contact'>Kontakt</Link>
+        <div className={navbar.link}>
+          <Link to='/about'>O NAS</Link>
+        </div>
+
+        <div className={navbar.link}>
+          <Link to='/contact'>KONTAKT</Link>
+        </div>
+          
+      </div>
     </nav>
   )
 }
