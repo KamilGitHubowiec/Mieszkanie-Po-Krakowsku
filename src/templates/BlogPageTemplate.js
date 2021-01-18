@@ -1,6 +1,6 @@
 import React from 'react'
-import { graphql } from 'gatsby' 
-import Img from "gatsby-image"
+import { graphql } from 'gatsby'
+import Img from 'gatsby-image'
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 
 import Layout from '../components/layout'
@@ -11,25 +11,25 @@ import Head from '../components/head'
 // there is no other way to access context which contains slug
 // It is passed as a prop to the component
 
-const BlogPageTemplate = (props) => {
+const BlogPageTemplate = props => {
   return (
     <Layout>
       <Head title={props.data.contentfulNieruchomosc.miasto} />
       <h1>{props.data.contentfulNieruchomosc.miasto}</h1>
       <p>{props.data.contentfulNieruchomosc.createdAt}</p>
-      {documentToReactComponents(JSON.parse(props.data.contentfulNieruchomosc.opis.raw))}
-      {props.data.contentfulNieruchomosc.zdjecia.map((zdjecie) => {
-        return(
-          <Img fixed={zdjecie.fixed} alt={zdjecie.title} />     
-        ) 
-      })}      
+      {props.data.contentfulNieruchomosc.opis &&
+        documentToReactComponents(JSON.parse(props.data.contentfulNieruchomosc.opis.raw))}
+      {props.data.contentfulNieruchomosc.zdjecia &&
+        props.data.contentfulNieruchomosc.zdjecia.map(zdjecie => {
+          return <Img fixed={zdjecie.fixed} alt={zdjecie.title} />
+        })}
     </Layout>
   )
 }
 
 export const query = graphql`
   query($id: String!) {
-    contentfulNieruchomosc(id: {eq: $id}) {
+    contentfulNieruchomosc(id: { eq: $id }) {
       miasto
       dzielnica
       ulica
@@ -39,7 +39,7 @@ export const query = graphql`
       opis {
         raw
       }
-      zdjecia { 
+      zdjecia {
         fixed {
           ...GatsbyContentfulFixed
         }

@@ -1,0 +1,61 @@
+@import '../styles/index.scss';
+
+.recentBlogPost {
+  padding: 0 10rem;
+
+  h2 {
+    font-size: 3.5rem;
+    font-weight: 400;
+    color: $color-primary;
+    margin-bottom: 3rem;
+  }
+}
+
+.posts {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3rem 3rem;
+
+  .img {
+    height: 27rem;
+    width: 100%;
+    margin-bottom: 2rem;
+    background-color: $color-tetiary;
+  }
+}
+
+.post {
+  height: 38rem;
+
+  h3 {
+    display: inline-block;
+    transition: 0.1s;
+
+    &:hover {
+      color: $color-secondary;
+    }
+  }
+
+  h4 {
+    margin-top: 1rem;
+    font-size: 1.4rem;
+  }
+}
+
+.description {
+  margin-top: 1rem;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  font-size: 1.2rem;
+
+  p {
+    font-weight: 600;
+    color: $color-secondary;
+
+    span {
+      font-weight: 400;
+      color: black;
+    }
+  }
+}

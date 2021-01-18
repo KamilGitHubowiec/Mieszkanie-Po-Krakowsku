@@ -4,7 +4,7 @@ import { graphql, useStaticQuery, Link } from 'gatsby'
 const BlogPost = () => {
   const data = useStaticQuery(graphql`
     query {
-      allContentfulNieruchomosc ( sort: { fields: createdAt, order: DESC }) {
+      allContentfulNieruchomosc(sort: { fields: createdAt, order: DESC }) {
         edges {
           node {
             miasto
@@ -22,7 +22,7 @@ const BlogPost = () => {
 
   return (
     <div>
-      {data.allContentfulNieruchomosc.edges.map((edge) => {
+      {data.allContentfulNieruchomosc.edges.map(edge => {
         return (
           <Link to={`/nieruchomosc/${edge.node.id}/${edge.node.miasto}/${edge.node.ulica}`}>
             <p> {edge.node.slug} </p>

@@ -1,16 +1,16 @@
-import React from "react"
+import React from 'react'
 
 import Layout from '../components/layout'
 import Head from '../components/head'
 import Header from '../components/header'
-import BlogPost from '../components/blogPost'
+import RecentBlogPost from '../components/recentBlogPost'
 
 const IndexPage = () => {
   return (
     <Layout>
-      <Head title="Strona główna"/>
+      <Head title="Strona główna" />
       <Header />
-      <BlogPost />
+      <RecentBlogPost />
     </Layout>
   )
 }
