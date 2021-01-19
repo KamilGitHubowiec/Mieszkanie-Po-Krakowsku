@@ -39,11 +39,18 @@ const RecentBlogPost = () => {
               to={`/nieruchomosc/${edge.node.id}/${edge.node.miasto}/${edge.node.ulica}`}
             >
               {edge.node.zdjecia ? (
-                <Img
-                  fluid={edge.node.zdjecia && edge.node.zdjecia[0].fluid}
-                  alt={edge.node.zdjecia && edge.node.zdjecia[0].title}
-                  className={recentBlogPost.img}
-                />
+                <div>
+                  {console.log(edge.node.zdjecia)}
+                  {edge.node.zdjecia.map(zdjecie => {
+                    return (
+                      <Img
+                        className={recentBlogPost.img}
+                        fluid={zdjecie.fluid}
+                        alt={zdjecie.title}
+                      />
+                    )
+                  })}
+                </div>
               ) : (
                 <div className={recentBlogPost.img}>Brak zdjęć</div>
               )}
