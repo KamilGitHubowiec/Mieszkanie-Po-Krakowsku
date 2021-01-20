@@ -11,13 +11,13 @@ const Slider = ({ images }) => {
   const goLeft = () => {
     if (x >= 0) return
     setX(x + 100)
-    setTransition('0.5s')
+    setTransition('ease-in-out 0.7s')
   }
 
   const goRight = () => {
     if (x === -100 * (sliderArr.length - 1)) return
     setX(x - 100)
-    setTransition('0.5s')
+    setTransition('ease-in-out 0.7s')
   }
 
   // When the transition on the last img ends it moves

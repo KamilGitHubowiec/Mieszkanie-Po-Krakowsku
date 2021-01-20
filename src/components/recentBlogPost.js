@@ -1,6 +1,5 @@
 import React from 'react'
 import { graphql, useStaticQuery, Link } from 'gatsby'
-// import Img from 'gatsby-image'
 
 import recentBlogPost from '../styles/recentBlogPost.module.scss'
 import Slider from '../components/slider'
