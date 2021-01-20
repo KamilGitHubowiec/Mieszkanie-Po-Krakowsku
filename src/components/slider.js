@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
+import { Link } from 'gatsby'
 import Img from 'gatsby-image'
 
 import slider from '../styles/slider.module.scss'
 
-const Slider = ({ images }) => {
+const Slider = ({ images, linkTo }) => {
   const sliderArr = [images[images.length - 1], ...images, images[0]]
   const [x, setX] = useState(0)
   const [transition, setTransition] = useState('0.5s')
@@ -13,7 +14,6 @@ const Slider = ({ images }) => {
     setX(x + 100)
     setTransition('ease-in-out 0.7s')
   }
-
   const goRight = () => {
     if (x === -100 * (sliderArr.length - 1)) return
     setX(x - 100)
@@ -47,7 +47,9 @@ const Slider = ({ images }) => {
             }}
             onTransitionEnd={handleTransition}
           >
-            <Img className={slider.img} fluid={item.fluid} alt={item.title} />
+            <Link to={linkTo}>
+              <Img className={slider.img} fluid={item.fluid} alt={item.title} />
+            </Link>
           </div>
         )
       })}

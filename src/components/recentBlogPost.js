@@ -37,7 +37,10 @@ const RecentBlogPost = () => {
             <div className={recentBlogPost.post}>
               {edge.node.zdjecia ? (
                 <div className={recentBlogPost.img}>
-                  <Slider images={edge.node.zdjecia} />
+                  <Slider
+                    images={edge.node.zdjecia}
+                    linkTo={`/nieruchomosc/${edge.node.id}/${edge.node.miasto}/${edge.node.ulica}`}
+                  />
                 </div>
               ) : (
                 <div className={recentBlogPost.img}>Brak zdjęć</div>
