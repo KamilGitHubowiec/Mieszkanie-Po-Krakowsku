@@ -1,0 +1,88 @@
+@import '../styles/index.scss';
+
+.slider {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.slide {
+  position: relative;
+  min-width: 100%;
+  min-height: 100%;
+  transition: 0.5s;
+}
+
+.img {
+  height: 27rem;
+}
+
+%btn-styles {
+  position: absolute;
+  cursor: pointer;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background-color: rgba(#f9f9f9, 0.5);
+  &::before,
+  &::after {
+    width: 0.9rem;
+    height: 0.2rem;
+    background-color: $color-primary;
+    position: absolute;
+    content: '';
+  }
+  &::before {
+    top: 1.1rem;
+    border-bottom-right-radius: 0.1rem;
+    border-bottom-left-radius: 0.1rem;
+  }
+  &::after {
+    top: 0.62rem;
+    border-top-right-radius: 0.1rem;
+    border-top-left-radius: 0.1rem;
+  }
+  &:hover {
+    background-color: rgba(#f9f9f9, 0.9);
+  }
+}
+
+.goLeft {
+  left: 1rem;
+  &::before,
+  &::after {
+    left: 0.5rem;
+  }
+  &::before {
+    transform: rotate(40deg);
+    border-top-right-radius: 0.1rem;
+  }
+  &::after {
+    transform: rotate(-40deg);
+    border-bottom-right-radius: 0.1rem;
+  }
+  @extend %btn-styles;
+}
+
+.goRight {
+  right: 1rem;
+  &::before,
+  &::after {
+    right: 0.5rem;
+  }
+  &::before {
+    transform: rotate(-40deg);
+    border-top-left-radius: 0.1rem;
+  }
+  &::after {
+    transform: rotate(40deg);
+    border-bottom-left-radius: 0.1rem;
+  }
+  @extend %btn-styles;
+}

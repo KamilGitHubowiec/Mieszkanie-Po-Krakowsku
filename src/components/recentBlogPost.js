@@ -1,8 +1,9 @@
 import React from 'react'
 import { graphql, useStaticQuery, Link } from 'gatsby'
-import Img from 'gatsby-image'
+// import Img from 'gatsby-image'
 
 import recentBlogPost from '../styles/recentBlogPost.module.scss'
+import Slider from '../components/slider'
 
 const RecentBlogPost = () => {
   const data = useStaticQuery(graphql`
@@ -34,28 +35,18 @@ const RecentBlogPost = () => {
       <div className={recentBlogPost.posts}>
         {data.allContentfulNieruchomosc.edges.map(edge => {
           return (
-            <Link
-              className={recentBlogPost.post}
-              to={`/nieruchomosc/${edge.node.id}/${edge.node.miasto}/${edge.node.ulica}`}
-            >
+            <div className={recentBlogPost.post}>
               {edge.node.zdjecia ? (
-                <div>
-                  {console.log(edge.node.zdjecia)}
-                  {edge.node.zdjecia.map(zdjecie => {
-                    return (
-                      <Img
-                        className={recentBlogPost.img}
-                        fluid={zdjecie.fluid}
-                        alt={zdjecie.title}
-                      />
-                    )
-                  })}
+                <div className={recentBlogPost.img}>
+                  <Slider images={edge.node.zdjecia} />
                 </div>
               ) : (
                 <div className={recentBlogPost.img}>Brak zdjęć</div>
               )}
               <h3>
-                {edge.node.miasto} {edge.node.dzielnica && '/ ' + edge.node.dzielnica}
+                <Link to={`/nieruchomosc/${edge.node.id}/${edge.node.miasto}/${edge.node.ulica}`}>
+                  {edge.node.miasto} {edge.node.dzielnica && '/ ' + edge.node.dzielnica}
+                </Link>
               </h3>
               <h4> {edge.node.ulica} </h4>
               <div className={recentBlogPost.description}>
@@ -79,7 +70,7 @@ const RecentBlogPost = () => {
                   </span>
                 </p>
               </div>
-            </Link>
+            </div>
           )
         })}
       </div>

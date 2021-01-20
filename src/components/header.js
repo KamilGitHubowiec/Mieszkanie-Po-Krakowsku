@@ -20,7 +20,11 @@ const Header = () => {
 
   return (
     <div className={header.header}>
-      <BackgroundImage className={header.image} fluid={data.file.childImageSharp.fluid} alt={data.file.name}>
+      <BackgroundImage
+        className={header.image}
+        fluid={data.file.childImageSharp.fluid}
+        alt={data.file.name}
+      >
         <div className={header.overlay}>Mieszkanie Po Krakowsku</div>
       </BackgroundImage>
     </div>
