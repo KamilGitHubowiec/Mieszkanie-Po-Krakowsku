@@ -1,0 +1,73 @@
+@import './index.scss';
+
+.header {
+  height: 80vh;
+  width: 100%;
+  position: relative;
+  margin-bottom: 4rem;
+
+  .img {
+    height: 80vh !important;
+    width: 100%;
+  }
+
+  .baners {
+    bottom: 0;
+    position: absolute;
+
+    .banerSmall {
+      padding: 2.5rem 5rem;
+      background-color: $color-tetiary;
+      display: inline-block;
+      font-size: 2.3rem;
+      font-weight: 600;
+    }
+
+    .banerBig {
+      padding: 3.5rem 5rem;
+      background-color: $color-primary;
+      display: flex;
+      font-weight: 600;
+
+      div:first-child {
+        padding-right: 6rem;
+        border-right: 2px solid black;
+      }
+
+      div:last-child {
+        padding-left: 6rem;
+      }
+
+      h1 {
+        font-size: 3.5rem;
+        margin-bottom: 0.8rem;
+      }
+    }
+  }
+}
+
+.content {
+  margin: 0 8rem;
+  padding: 3rem 2rem;
+  background-color: #f9f9f9;
+
+  .section {
+    padding: 2.9rem 0 1.5rem 0;
+    border-bottom: 1px solid rgba(#a3a3a3, 0.3);
+    display: flex;
+
+    .label {
+      width: 15rem;
+      padding-right: 1rem;
+      font-size: 1.7rem;
+      font-weight: 600;
+    }
+
+    .images {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 1rem;
+    }
+  }
+}
