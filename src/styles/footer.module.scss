@@ -1,7 +1,7 @@
-@import '../styles/index.scss';
+@import './variables.scss';
 
 .footer {
-  padding: 2rem 10rem;
+  padding: 2rem 12rem;
   background-color: $color-black;
   color: $color-tetiary;
   margin-top: 4rem;

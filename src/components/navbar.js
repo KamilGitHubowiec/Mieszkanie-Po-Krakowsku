@@ -10,7 +10,7 @@ const NavigationMenu = () => {
 
       <div className={navbar.links}>
         <div className={navbar.link}>
-          <Link to="/estates">NIERUCHOMOŚCI</Link>
+          <Link to="/wyszukiwarka">WYSZUKIWARKA</Link>
         </div>
 
         <div className={navbar.link}>

@@ -1,6 +1,7 @@
 import React from 'react'
 import { graphql } from 'gatsby'
 import Img from 'gatsby-image'
+import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import {
   FaSquare,
   FaTint,
@@ -17,11 +18,13 @@ import {
   FaCity,
   FaAngleDoubleUp,
   FaBoxOpen,
+  FaMapMarkerAlt,
+  FaRegUser,
+  FaRegEnvelope,
+  FaMobileAlt,
 } from 'react-icons/fa'
-// import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 
 import estatePage from '../styles/estatePageTemplate.module.scss'
-
 import Layout from '../components/layout'
 import Head from '../components/head'
 import EstateDetails from '../components/estateDetails'
@@ -35,7 +38,7 @@ const EstatePageTemplate = props => {
       <header className={estatePage.header}>
         <Img
           className={estatePage.img}
-          fluid={nieruchomosc.zdjecia[3].fluid}
+          fluid={nieruchomosc.zdjecia[0].fluid}
           alt={nieruchomosc.zdjecia[0].title}
         />
         <div className={estatePage.baners}>
@@ -59,50 +62,121 @@ const EstatePageTemplate = props => {
       </header>
 
       <div className={estatePage.content}>
-        <EstateDetails
-          title={'Mieszkanie'}
-          details={[
-            [<FaSquare />, 'Powierzchnia Całkowita m2', nieruchomosc.powierzchniaCalkowitaM2],
-            [<FaElementor />, 'Pokoje', nieruchomosc.pokoje],
-            [<FaFire />, 'Ogrzewanie', nieruchomosc.ogrzewanie],
-            [<FaTint />, 'Ciepła woda', nieruchomosc.ciepaWoda],
+        <div className={estatePage.contentMain}>
+          <EstateDetails
+            title={'Mieszkanie'}
+            details={[
+              [<FaSquare />, 'Powierzchnia Całkowita m2', nieruchomosc.powierzchniaCalkowitaM2],
+              [<FaElementor />, 'Pokoje', nieruchomosc.pokoje],
+              [<FaFire />, 'Ogrzewanie', nieruchomosc.ogrzewanie],
+              [<FaTint />, 'Ciepła woda', nieruchomosc.ciepaWoda],
 
-            [<FaStream />, 'Piętro', nieruchomosc.pitro],
-            [<FaCompass />, 'Ekspozycja okien', nieruchomosc.ekspozycjaOkien],
+              [<FaStream />, 'Piętro', nieruchomosc.pitro],
+              [<FaCompass />, 'Ekspozycja okien', nieruchomosc.ekspozycjaOkien],
 
-            [<FaDungeon />, 'Piwnica', nieruchomosc.piwnica],
-            [<FaBoxOpen />, 'Balkon', nieruchomosc.balkon],
-            [<FaHands />, 'Gwarancja', nieruchomosc.gwarancja],
-          ]}
-        />
-        <EstateDetails
-          title={'Budynek'}
-          details={[
-            [<FaCity />, 'Rok budowy', nieruchomosc.rokBudowy],
-            [<FaAngleDoubleUp />, 'Winda', nieruchomosc.winda],
-            [<FaBuilding />, 'Rodzaj budynku', nieruchomosc.rodzajBudynku],
-            [<FaSortNumericUpAlt />, 'Liczba pięter', nieruchomosc.liczbaPiter],
-          ]}
-        />
-        <EstateDetails
-          title={'Opłaty'}
-          details={[
-            [<FaHandHoldingUsd />, 'Czynsz administracyjny', nieruchomosc.czynszAdministracyjny],
-            [<FaDollarSign />, 'Cena', nieruchomosc.cena],
-          ]}
-        />
-        <section className={estatePage.section}>
-          <div className={estatePage.label}>Zdjęcia</div>
-          <div className={estatePage.images}>
-            {nieruchomosc.zdjecia &&
-              nieruchomosc.zdjecia.map(zdjecie => {
-                return <Img fluid={zdjecie.fluid} alt={zdjecie.title} />
-              })}
+              [<FaDungeon />, 'Piwnica', nieruchomosc.piwnica],
+              [<FaBoxOpen />, 'Balkon', nieruchomosc.balkon],
+              [<FaHands />, 'Gwarancja', nieruchomosc.gwarancja],
+            ]}
+          />
+
+          <EstateDetails
+            title={'Budynek'}
+            details={[
+              [<FaCity />, 'Rok budowy', nieruchomosc.rokBudowy],
+              [<FaAngleDoubleUp />, 'Winda', nieruchomosc.winda],
+              [<FaBuilding />, 'Rodzaj budynku', nieruchomosc.rodzajBudynku],
+              [<FaSortNumericUpAlt />, 'Liczba pięter', nieruchomosc.liczbaPiter],
+            ]}
+          />
+
+          <EstateDetails
+            title={'Opłaty'}
+            details={[
+              [<FaHandHoldingUsd />, 'Czynsz administracyjny', nieruchomosc.czynszAdministracyjny],
+              [<FaDollarSign />, 'Cena', nieruchomosc.cena],
+            ]}
+          />
+
+          <section className={estatePage.section}>
+            <div className={estatePage.label}>Lokalizacja</div>
+            <div className={estatePage.localizationWrapper}>
+              <iframe
+                title="lokalizacja"
+                width={'100%'}
+                height="500"
+                frameborder="0"
+                style={{ border: '0' }}
+                src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyB3Qv0-byCedLJfXzuPYAflrNuDSPQMFLM&q=${nieruchomosc.lokalizacja.lat},${nieruchomosc.lokalizacja.lon}&zoom=16&center=${nieruchomosc.lokalizacja.lat},${nieruchomosc.lokalizacja.lon}`}
+              />
+              <div className={estatePage.localizationDetailsWrapper}>
+                <div className={estatePage.detailField}>
+                  <div className={estatePage.detailFieldIcon}>{<FaMapMarkerAlt />}</div>
+                  <div className={estatePage.detailFieldLabel}>Rejon:</div>
+                  <div className={estatePage.detailFieldValue}>
+                    {nieruchomosc.miasto}, {nieruchomosc.dzielnica}
+                  </div>
+                </div>
+                <div className={estatePage.detailField}>
+                  <div className={estatePage.detailFieldIcon}>{<FaMapMarkerAlt />}</div>
+                  <div className={estatePage.detailFieldLabel}>Ulica:</div>
+                  <div className={estatePage.detailFieldValue}>{nieruchomosc.ulica}</div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section className={estatePage.section}>
+            <div className={estatePage.label}>Zdjęcia</div>
+            <div className={estatePage.images}>
+              {nieruchomosc.zdjecia &&
+                nieruchomosc.zdjecia.map(zdjecie => {
+                  return <Img fluid={zdjecie.fluid} alt={zdjecie.title} />
+                })}
+            </div>
+          </section>
+
+          <section className={estatePage.section}>
+            <div className={estatePage.label}>Opis</div>
+            <div className={estatePage.description}>
+              {nieruchomosc.opis && documentToReactComponents(JSON.parse(nieruchomosc.opis.raw))}
+            </div>
+          </section>
+        </div>
+
+        <div className={estatePage.contentContactAgent}>
+          <div className={estatePage.agentHeader}>Skontaktuj się z agentem</div>
+          <div className={estatePage.agentPhoto}>
+            <Img
+              fluid={nieruchomosc.zdjecieAgentaNieruchomosci.fluid}
+              alt={nieruchomosc.zdjecieAgentaNieruchomosci.title}
+            />
           </div>
-        </section>
-      </div>
+          <ul className={estatePage.agentDetails}>
+            <li>
+              <div className={estatePage.agentDetailIcon}>
+                <FaRegUser />
+              </div>
+              {nieruchomosc.imieINazwiskoAgentaNieruchomosci}
+            </li>
+            <li>
+              <div className={estatePage.agentDetailIcon}>
+                <FaMobileAlt />
+              </div>
 
-      {/* {nieruchomosc.opis && documentToReactComponents(JSON.parse(nieruchomosc.opis.raw))} */}
+              {nieruchomosc.numerTelefonuAgentaNieruchomosci}
+            </li>
+
+            <li>
+              <div className={estatePage.agentDetailIcon}>
+                <FaRegEnvelope />
+              </div>
+
+              {nieruchomosc.emailAgentaNieruchomosci}
+            </li>
+          </ul>
+        </div>
+      </div>
     </Layout>
   )
 }
@@ -128,6 +202,18 @@ export const query = graphql`
       piwnica
       balkon
       gwarancja
+      imieINazwiskoAgentaNieruchomosci
+      numerTelefonuAgentaNieruchomosci
+      emailAgentaNieruchomosci
+      zdjecieAgentaNieruchomosci {
+        fluid {
+          ...GatsbyContentfulFluid
+        }
+      }
+      lokalizacja {
+        lat
+        lon
+      }
       opis {
         raw
       }

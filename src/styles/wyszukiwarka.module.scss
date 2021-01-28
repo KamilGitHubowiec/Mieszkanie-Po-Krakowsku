@@ -1,0 +1,134 @@
+@import './variables.scss';
+
+.filterBar {
+}
+
+.body {
+  padding: 4rem 12rem;
+
+  .header {
+    font-size: 5rem;
+    font-weight: 300;
+  }
+
+  .sortBar {
+    width: 100%;
+    margin: 5rem 0;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e1e1e1;
+    font-size: 1.4rem;
+
+    .dropdownListSort {
+    }
+  }
+
+  .results {
+    .result {
+      height: 22rem;
+      width: 100%;
+      margin-bottom: 8rem;
+      padding-bottom: 1rem;
+      display: flex;
+      border-bottom: 1px solid #e1e1e1;
+
+      .images {
+        width: 25%;
+        margin-right: 2.5rem;
+        background-color: $color-primary;
+        color: $color-tetiary;
+
+        .image {
+          height: 100%;
+        }
+      }
+
+      .details {
+        width: 55%;
+
+        h4,
+        h5,
+        li {
+          margin-bottom: 2rem;
+        }
+
+        h4 {
+          font-size: 2rem;
+          font-weight: 500;
+          cursor: pointer;
+
+          &:hover {
+            color: $color-primary;
+          }
+        }
+
+        h5 {
+          font-size: 1.6rem;
+          font-weight: 300;
+        }
+
+        ul {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+
+          li {
+            font-size: 1.3rem;
+            color: #5b5a5a;
+            display: flex;
+
+            p {
+              width: 15rem;
+              margin-left: 2rem;
+            }
+          }
+        }
+      }
+
+      .priceAndButton {
+        width: 20%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: flex-end;
+
+        h3 {
+          font-size: 3.5rem;
+          font-weight: 400;
+          text-align: right;
+
+          span {
+            font-size: 3rem;
+          }
+        }
+
+        p {
+          margin-top: 1rem;
+          font-size: 1.8rem;
+          color: #999;
+          text-align: right;
+
+          span {
+            font-size: 1.5rem;
+          }
+        }
+
+        button {
+          width: 18rem;
+          padding: 1.5rem 2rem;
+          background-color: $color-primary;
+          font-size: 1.6rem;
+          color: $color-tetiary;
+          transition: 0.1s ease-in-out;
+          cursor: pointer;
+
+          &:hover {
+            transform: scale(1.02);
+          }
+
+          &:active {
+            transform: scale(0.98);
+          }
+        }
+      }
+    }
+  }
+}

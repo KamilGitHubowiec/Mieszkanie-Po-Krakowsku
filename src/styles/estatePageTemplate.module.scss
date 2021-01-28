@@ -1,10 +1,9 @@
-@import './index.scss';
+@import './variables.scss';
 
 .header {
   height: 80vh;
   width: 100%;
   position: relative;
-  margin-bottom: 4rem;
 
   .img {
     height: 80vh !important;
@@ -47,9 +46,15 @@
 }
 
 .content {
-  margin: 0 8rem;
-  padding: 3rem 2rem;
-  background-color: #f9f9f9;
+  width: 100%;
+  padding: 8rem 9rem 0 9rem;
+  display: flex;
+}
+
+.contentMain {
+  width: 78%;
+  padding: 3rem 0 3rem 2rem;
+  background-color: white;
 
   .section {
     padding: 2.9rem 0 1.5rem 0;
@@ -66,8 +71,80 @@
     .images {
       width: 100%;
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
       gap: 1rem;
+    }
+
+    .description {
+      width: 100%;
+      line-height: 2.6rem;
+      color: #a3a3a3;
+    }
+
+    .localizationWrapper {
+      width: 100%;
+    }
+
+    .localizationDetailsWrapper {
+      margin-top: 2rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+
+      .detailField {
+        display: flex;
+        padding-bottom: 2rem;
+        font-size: 1.3rem;
+        color: #5b5a5a;
+
+        .detailFieldIcon {
+          margin-right: 1rem;
+        }
+
+        .detailFieldLabel {
+          width: 25%;
+        }
+
+        .detailFieldValue {
+          font-weight: 600;
+        }
+      }
+    }
+  }
+}
+
+.contentContactAgent {
+  max-height: 49rem;
+  width: 22%;
+  margin-left: 4rem;
+  position: sticky;
+  top: 8rem;
+
+  .agentHeader {
+    padding: 1.5rem 2rem;
+    text-align: center;
+    background-color: $color-primary;
+    font-size: 1.7rem;
+    color: $color-tetiary;
+  }
+
+  .agentPhoto {
+    padding: 1rem 2rem;
+    overflow: hidden;
+  }
+
+  .agentDetails {
+    padding: 0 2rem;
+    font-size: 1.4rem;
+    color: #5b5a5a;
+
+    li {
+      margin-top: 1.5rem;
+      display: flex;
+
+      .agentDetailIcon {
+        font-size: 1.6rem;
+        margin-right: 1rem;
+      }
     }
   }
 }
