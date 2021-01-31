@@ -17,8 +17,69 @@
     padding-bottom: 1rem;
     border-bottom: 1px solid #e1e1e1;
     font-size: 1.4rem;
+    display: flex;
+    justify-content: space-between;
 
     .dropdownListSort {
+      // .sortButton {
+      //   background-color: transparent;
+      //   font-size: 1.5rem;
+      //   display: flex;
+      //   align-items: baseline;
+      //   cursor: pointer;
+
+      //   .chevronDownWrapper {
+      //     width: 1.5rem;
+      //     height: 1.5rem;
+      //     margin-left: 1.5rem;
+
+      //     .chevronDown {
+      //       width: 1.5rem;
+      //       height: 1.5rem;
+      //       position: relative;
+
+      //       &::before,
+      //       &::after {
+      //         width: 0.94rem;
+      //         height: 0.2rem;
+      //         position: absolute;
+      //         top: 0.8rem;
+      //         background-color: $color-primary;
+      //         content: '';
+      //         transition: all 0.2s ease;
+      //       }
+
+      //       &::before {
+      //         left: 0;
+      //         transform: rotate(46deg);
+      //         border-top-left-radius: 0.1rem;
+      //         border-top-right-radius: 0.1rem;
+      //         border-bottom-right-radius: 0.1rem;
+      //       }
+
+      //       &::after {
+      //         right: -0.38rem;
+      //         transform: rotate(-46deg);
+      //         border-top-right-radius: 0.1rem;
+      //         border-top-left-radius: 0.1rem;
+      //         border-bottom-left-radius: 0.1rem;
+      //       }
+      //     }
+      //   }
+      //   &:active {
+      //     .chevronDown::before {
+      //       transform: rotate(-46deg);
+      //     }
+      //     .chevronDown::after {
+      //       transform: rotate(46deg);
+      //     }
+      //   }
+      // }
+
+      // .sortOptions {
+      //   position: absolute;
+      //   background-color: white;
+      // }
     }
   }
 

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { graphql, useStaticQuery, Link } from 'gatsby'
 import Img from 'gatsby-image'
 import { FaFire, FaSquare, FaElementor, FaStream } from 'react-icons/fa'
@@ -34,7 +34,15 @@ const Wyszukiwarka = () => {
       }
     }
   `)
+
   const nieruchomosci = data.allContentfulNieruchomosc.edges
+  const [nieruchomosciArr, setNieruchomosciArr] = useState([...nieruchomosci])
+
+  const sortArray = type => {
+    const sorted = [...nieruchomosci].sort((a, b) => b.node[type] - a.node[type])
+    setNieruchomosciArr(sorted)
+    console.log(nieruchomosci[0].node.createdAt)
+  }
 
   const insertSpaceAfterThirdChar = num => {
     let numStr = num.toString()
@@ -59,11 +67,28 @@ const Wyszukiwarka = () => {
 
         <div className={wyszukiwarkaStyles.sortBar}>
           <div>Ilość nieruchmości: {nieruchomosci.length}</div>
-          <div className={wyszukiwarkaStyles.dropdownListSort}></div>
+          <div className={wyszukiwarkaStyles.dropdownListSort}>
+            {/* <button className={wyszukiwarkaStyles.sortButton}>
+              Sortuj wg{' '}
+              <div className={wyszukiwarkaStyles.chevronDownWrapper}>
+                <span className={wyszukiwarkaStyles.chevronDown} />
+              </div>
+            </button> */}
+            <select
+              onChange={e => sortArray(e.target.value)}
+              className={wyszukiwarkaStyles.sortOptions}
+            >
+              <option value="createdAt">Nowości</option>
+              <option value="cena">Najwyższa cena</option>
+              {/* <option value={{ sortBy: 'cena', order: 'DESC' }}>Najwyższa cena</option> */}
+              <option value="powierzchniaCalkowitaM2">Największy metraż</option>
+              {/* <option value="powierzchniaCalkowitaM2">Największy metraż</option> */}
+            </select>
+          </div>
         </div>
 
         <div className={wyszukiwarkaStyles.results}>
-          {nieruchomosci.map(edge => {
+          {nieruchomosciArr.map(edge => {
             return (
               <div className={wyszukiwarkaStyles.result}>
                 <div className={wyszukiwarkaStyles.images}>
