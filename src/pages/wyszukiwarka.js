@@ -74,7 +74,7 @@ const Wyszukiwarka = () => {
     e.preventDefault()
     const filtered = nieruchomosci.filter(cur => {
       if (
-        cur.node['ulica'].toLowerCase().includes(filters.toLowerCase()) ||
+        cur.node['miasto'].toLowerCase().includes(filters.toLowerCase()) ||
         filters.trim() === ''
       ) {
         return cur
@@ -97,11 +97,11 @@ const Wyszukiwarka = () => {
           <input
             type="text"
             placeholder="Szukaj po miastach i ulicach"
-            name="ulica"
+            name="miasto"
             value={filters}
             onChange={e => addFilter(e.target.value)}
           />
-          <input
+          {/* <input
             type="text"
             placeholder="Cena"
             value={filters}
@@ -112,7 +112,7 @@ const Wyszukiwarka = () => {
             placeholder="Cena"
             value={filters}
             onChange={e => addFilter(e.target.value)}
-          />
+          /> */}
           <input type="submit" value="Szukaj" />
         </form>
       </div>
