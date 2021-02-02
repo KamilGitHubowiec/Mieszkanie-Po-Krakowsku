@@ -36,9 +36,9 @@ const Wyszukiwarka = () => {
   `)
 
   const nieruchomosci = data.allContentfulNieruchomosc.edges
-  const [filteredNieruchomosciArr, setFilteredNieruchomosciArr] = useState(nieruchomosci)
+  const [nieruchomosciArr, setNieruchomosciArr] = useState(nieruchomosci)
   const [sortOption, setSortOption] = useState('createdAt')
-  const [filters, setFilters] = useState('')
+  const [filters, setFilters] = useState([])
 
   const insertSpaceAfterThirdChar = num => {
     let numStr = num.toString()
@@ -59,34 +59,41 @@ const Wyszukiwarka = () => {
     let sorted = []
 
     if (type === 'createdAt') {
-      sorted = [...filteredNieruchomosciArr].sort((a, b) => {
+      sorted = [...nieruchomosciArr].sort((a, b) => {
         const c = new Date(a.node[type])
         const d = new Date(b.node[type])
         return c - d
       })
     } else {
-      sorted = [...filteredNieruchomosciArr].sort((a, b) => b.node[type] - a.node[type])
+      sorted = [...nieruchomosciArr].sort((a, b) => b.node[type] - a.node[type])
     }
-    setFilteredNieruchomosciArr(sorted)
+    setNieruchomosciArr(sorted)
   }
 
   const filterArray = e => {
+    console.log(filters)
+
     e.preventDefault()
-    const filtered = nieruchomosci.filter(cur => {
-      if (
-        cur.node['miasto'].toLowerCase().includes(filters.toLowerCase()) ||
-        filters.trim() === ''
-      ) {
-        return cur
-      }
+    let filtered = [...nieruchomosci]
+
+    filters.map(filter => {
+      filtered = [...filtered].filter(cur => {
+        if (filter.condition(cur.node, filter.val) || filter.val === '') {
+          return cur
+        }
+      })
+
+      return filtered.sort((a, b) => b.node[sortOption] - a.node[sortOption])
     })
-    setFilteredNieruchomosciArr(
-      [...filtered].sort((a, b) => b.node[sortOption] - a.node[sortOption])
-    )
+
+    setNieruchomosciArr(filtered)
   }
 
-  const addFilter = filter => {
-    setFilters(filter)
+  const addFilter = (e, condition) => {
+    setFilters([
+      ...filters.filter(el => el.filterName !== e.target.name),
+      { filterName: e.target.name, val: e.target.value, condition: condition },
+    ])
   }
 
   return (
@@ -98,20 +105,26 @@ const Wyszukiwarka = () => {
             type="text"
             placeholder="Szukaj po miastach i ulicach"
             name="miasto"
-            value={filters}
-            onChange={e => addFilter(e.target.value)}
-          />
-          {/* <input
-            type="text"
-            placeholder="Cena"
-            value={filters}
-            onChange={e => addFilter(e.target.value)}
+            value={filters['miasto'] && filters['val']}
+            onChange={e =>
+              addFilter(e, (currNode, filterVal) =>
+                currNode['miasto'].toLowerCase().includes(filterVal.toLowerCase())
+              )
+            }
           />
           <input
-            type="text"
-            placeholder="Cena"
+            type="number"
+            placeholder="Cena od"
+            name="cena"
+            value={filters.cena && filters.cena}
+            onChange={e => addFilter(e, (currNode, filterVal) => filterVal >= currNode['cena'])}
+          />
+          {/* <input
+            type="number"
+            placeholder="Cena do"
+            name="cena"
             value={filters}
-            onChange={e => addFilter(e.target.value)}
+            onChange={e => addFilter(e)}
           /> */}
           <input type="submit" value="Szukaj" />
         </form>
@@ -120,7 +133,7 @@ const Wyszukiwarka = () => {
         <div className={wyszukiwarkaStyles.header}>Wyniki wyszukiwania</div>
 
         <div className={wyszukiwarkaStyles.sortBar}>
-          <div>Ilość nieruchmości: {filteredNieruchomosciArr.length}</div>
+          <div>Ilość nieruchmości: {nieruchomosciArr.length}</div>
           <div className={wyszukiwarkaStyles.dropdownListSort}>
             {/* <button className={wyszukiwarkaStyles.sortButton}>
               Sortuj wg{' '}
@@ -142,7 +155,7 @@ const Wyszukiwarka = () => {
         </div>
 
         <div className={wyszukiwarkaStyles.results}>
-          {filteredNieruchomosciArr.map(edge => {
+          {nieruchomosciArr.map(edge => {
             return (
               <div className={wyszukiwarkaStyles.result} key={edge.node.id}>
                 <div className={wyszukiwarkaStyles.images}>
