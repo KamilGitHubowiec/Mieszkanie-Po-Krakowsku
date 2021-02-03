@@ -94,6 +94,7 @@ const Wyszukiwarka = () => {
       ...filters.filter(el => el.filterName !== e.target.name),
       { filterName: e.target.name, val: e.target.value, condition: condition },
     ])
+    console.log(filters)
   }
 
   return (
@@ -105,7 +106,6 @@ const Wyszukiwarka = () => {
             type="text"
             placeholder="Szukaj po miastach i ulicach"
             name="miasto"
-            value={filters['miasto'] && filters['val']}
             onChange={e =>
               addFilter(e, (currNode, filterVal) =>
                 currNode['miasto'].toLowerCase().includes(filterVal.toLowerCase())
@@ -115,17 +115,37 @@ const Wyszukiwarka = () => {
           <input
             type="number"
             placeholder="Cena od"
-            name="cena"
-            value={filters.cena && filters.cena}
-            onChange={e => addFilter(e, (currNode, filterVal) => filterVal >= currNode['cena'])}
+            name="cena od"
+            onChange={e => addFilter(e, (currNode, filterVal) => filterVal <= currNode['cena'])}
           />
-          {/* <input
+          <input
             type="number"
             placeholder="Cena do"
-            name="cena"
-            value={filters}
-            onChange={e => addFilter(e)}
-          /> */}
+            name="cena do"
+            onChange={e => addFilter(e, (currNode, filterVal) => filterVal >= currNode['cena'])}
+          />
+          <input
+            type="number"
+            placeholder="m2 od"
+            name="m2 od"
+            onChange={e =>
+              addFilter(
+                e,
+                (currNode, filterVal) => filterVal <= currNode['powierzchniaCalkowitaM2']
+              )
+            }
+          />
+          <input
+            type="number"
+            placeholder="m2 do"
+            name="m2 do"
+            onChange={e =>
+              addFilter(
+                e,
+                (currNode, filterVal) => filterVal >= currNode['powierzchniaCalkowitaM2']
+              )
+            }
+          />
           <input type="submit" value="Szukaj" />
         </form>
       </div>
