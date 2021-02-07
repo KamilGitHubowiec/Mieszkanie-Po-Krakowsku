@@ -13,10 +13,11 @@
   .baners {
     bottom: 0;
     position: absolute;
+    color: $color-secondary;
 
     .banerSmall {
       padding: 2.5rem 5rem;
-      background-color: $color-tetiary;
+      background-color: $color-primary;
       display: inline-block;
       font-size: 2.3rem;
       font-weight: 600;
@@ -24,7 +25,7 @@
 
     .banerBig {
       padding: 3.5rem 5rem;
-      background-color: $color-primary;
+      background-color: $color-tetiary;
       display: flex;
       font-weight: 600;
 
@@ -45,33 +46,52 @@
   }
 }
 
-.content {
-  width: 100%;
-  padding: 8rem 9rem 0 9rem;
-  display: flex;
+.navigationButtons {
+  padding: 3rem $margin-horizontal 0;
+  > * {
+    margin-right: 0.5rem;
+  }
+  .backToWyszukiwarka {
+    margin-right: 2rem;
+    padding: 1.4rem 1.5rem 1.6rem;
+    background-color: $color-primary;
+    font-size: 1.3rem;
+    letter-spacing: 0.1rem;
+    color: $color-secondary;
+    text-transform: uppercase;
+    svg {
+      margin-right: 0.5rem;
+    }
+    &:hover {
+      background-color: $color-tetiary;
+    }
+  }
 }
 
-.contentMain {
-  width: 78%;
-  padding: 3rem 0 3rem 2rem;
-  background-color: white;
+.content {
+  width: 100%;
+  padding: 2rem $margin-horizontal 0;
+  display: flex;
 
-  .section {
-    padding: 2.9rem 0 1.5rem 0;
-    border-bottom: 1px solid rgba(#a3a3a3, 0.3);
-    display: flex;
+  .contentMain {
+    width: 78%;
+    background-color: $color-secondary;
 
-    .label {
-      width: 15rem;
-      padding-right: 1rem;
-      font-size: 1.7rem;
-      font-weight: 600;
+    .detailsWrapper {
+      @include two-col-grid;
+    }
+
+    .localizationWrapper {
+      width: 100%;
+      .localizationDetailsWrapper {
+        margin-top: 2rem;
+        @include two-col-grid;
+      }
     }
 
     .images {
       width: 100%;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
+      @include two-col-grid;
       gap: 1rem;
     }
 
@@ -80,70 +100,41 @@
       line-height: 2.6rem;
       color: #a3a3a3;
     }
+  }
 
-    .localizationWrapper {
-      width: 100%;
+  .contentContactAgent {
+    max-height: 49rem;
+    width: 22%;
+    margin-left: 4rem;
+    position: sticky;
+    top: 8rem;
+
+    .agentHeader {
+      padding: 1.5rem 2rem;
+      text-align: center;
+      background-color: $color-tetiary;
+      font-size: 1.7rem;
+      color: $color-secondary;
     }
 
-    .localizationDetailsWrapper {
-      margin-top: 2rem;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
+    .agentPhoto {
+      padding: 1rem 2rem;
+      overflow: hidden;
+    }
 
-      .detailField {
+    .agentDetails {
+      padding: 0 2rem;
+      font-size: 1.4rem;
+      color: #5b5a5a;
+
+      li {
+        margin-top: 1.5rem;
         display: flex;
-        padding-bottom: 2rem;
-        font-size: 1.3rem;
-        color: #5b5a5a;
 
-        .detailFieldIcon {
+        .agentDetailIcon {
+          font-size: 1.6rem;
           margin-right: 1rem;
         }
-
-        .detailFieldLabel {
-          width: 25%;
-        }
-
-        .detailFieldValue {
-          font-weight: 600;
-        }
-      }
-    }
-  }
-}
-
-.contentContactAgent {
-  max-height: 49rem;
-  width: 22%;
-  margin-left: 4rem;
-  position: sticky;
-  top: 8rem;
-
-  .agentHeader {
-    padding: 1.5rem 2rem;
-    text-align: center;
-    background-color: $color-primary;
-    font-size: 1.7rem;
-    color: $color-tetiary;
-  }
-
-  .agentPhoto {
-    padding: 1rem 2rem;
-    overflow: hidden;
-  }
-
-  .agentDetails {
-    padding: 0 2rem;
-    font-size: 1.4rem;
-    color: #5b5a5a;
-
-    li {
-      margin-top: 1.5rem;
-      display: flex;
-
-      .agentDetailIcon {
-        font-size: 1.6rem;
-        margin-right: 1rem;
       }
     }
   }

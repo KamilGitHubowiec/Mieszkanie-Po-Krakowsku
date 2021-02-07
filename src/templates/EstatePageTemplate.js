@@ -1,7 +1,4 @@
 import React from 'react'
-import { graphql } from 'gatsby'
-import Img from 'gatsby-image'
-import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import {
   FaSquare,
   FaTint,
@@ -22,28 +19,61 @@ import {
   FaRegUser,
   FaRegEnvelope,
   FaMobileAlt,
+  FaArrowCircleLeft,
 } from 'react-icons/fa'
+import { graphql, Link } from 'gatsby'
+import Img from 'gatsby-image'
+import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 
-import estatePage from '../styles/estatePageTemplate.module.scss'
+import estatePageStyles from '../styles/estatePageTemplate.module.scss'
 import Layout from '../components/layout'
 import Head from '../components/head'
-import EstateDetails from '../components/estateDetails'
+import EstateDetailsSection from '../components/estateDetailsSection/estateDetailsSection'
+import SingleDetail from '../components/singleDetail/singleDetail'
+import ButtonSecondary from '../components/buttonSecondary/buttonSecondary'
+import { insertBreakBetweenDigits } from '../components/functions'
 
 const EstatePageTemplate = props => {
   const nieruchomosc = props.data.contentfulNieruchomosc
+  const mieszkanieDetails = [
+    [<FaSquare />, 'Powierzchnia Całkowita m2', nieruchomosc.powierzchniaCalkowitaM2],
+    [<FaElementor />, 'Pokoje', nieruchomosc.pokoje],
+    [<FaFire />, 'Ogrzewanie', nieruchomosc.ogrzewanie],
+    [<FaTint />, 'Ciepła woda', nieruchomosc.ciepaWoda],
+    [<FaStream />, 'Piętro', nieruchomosc.pitro],
+    [<FaCompass />, 'Ekspozycja okien', nieruchomosc.ekspozycjaOkien],
+    [<FaDungeon />, 'Piwnica', nieruchomosc.piwnica],
+    [<FaBoxOpen />, 'Balkon', nieruchomosc.balkon],
+    [<FaHands />, 'Gwarancja', nieruchomosc.gwarancja],
+  ]
+  const budynekDetails = [
+    [<FaCity />, 'Rok budowy', nieruchomosc.rokBudowy],
+    [<FaAngleDoubleUp />, 'Winda', nieruchomosc.winda],
+    [<FaBuilding />, 'Rodzaj budynku', nieruchomosc.rodzajBudynku],
+    [<FaSortNumericUpAlt />, 'Liczba pięter', nieruchomosc.liczbaPiter],
+  ]
+  const oplatyDetails = [
+    [<FaHandHoldingUsd />, 'Czynsz administracyjny', nieruchomosc.czynszAdministracyjny],
+    [<FaDollarSign />, 'Cena', nieruchomosc.cena],
+  ]
+  const lokalizacjaDetails = [
+    [<FaMapMarkerAlt />, 'Rejon', `${(nieruchomosc.miasto, nieruchomosc.dzielnica)}`],
+    [<FaMapMarkerAlt />, 'Ulica', nieruchomosc.ulica],
+  ]
 
   return (
     <Layout>
       <Head title={nieruchomosc.ulica} />
-      <header className={estatePage.header}>
+      {/* Header */}
+      <header className={estatePageStyles.header}>
         <Img
-          className={estatePage.img}
+          className={estatePageStyles.img}
           fluid={nieruchomosc.zdjecia[0].fluid}
           alt={nieruchomosc.zdjecia[0].title}
         />
-        <div className={estatePage.baners}>
-          <div className={estatePage.banerSmall}>{nieruchomosc.ulica}</div>
-          <div className={estatePage.banerBig}>
+        <div className={estatePageStyles.baners}>
+          <div className={estatePageStyles.banerSmall}>{nieruchomosc.ulica}</div>
+          <div className={estatePageStyles.banerBig}>
             <div>
               <h1>
                 Mieszkanie na sprzedaż - {`${nieruchomosc.miasto}, ${nieruchomosc.dzielnica}`}
@@ -51,56 +81,58 @@ const EstatePageTemplate = props => {
               <p>{nieruchomosc.ulica}</p>
             </div>
             <div>
-              <h1>{nieruchomosc.cena} PLN</h1>
+              <h1>{insertBreakBetweenDigits(nieruchomosc.cena)} PLN</h1>
               <p>
-                {Math.round(nieruchomosc.cena / nieruchomosc.powierzchniaCalkowitaM2)} PLN/m
+                {insertBreakBetweenDigits(
+                  Math.round(nieruchomosc.cena / nieruchomosc.powierzchniaCalkowitaM2)
+                )}{' '}
+                PLN/m
                 <sup>2</sup>
               </p>
             </div>
           </div>
         </div>
       </header>
+      {/* Navigation Buttons */}
+      <div className={estatePageStyles.navigationButtons}>
+        <Link className={estatePageStyles.backToWyszukiwarka} to="/wyszukiwarka">
+          <FaArrowCircleLeft />
+          Wyszukiwarka
+        </Link>
+        <ButtonSecondary goTo="informacje" />
+        <ButtonSecondary goTo="lokalizacja" />
+        <ButtonSecondary goTo="zdjęcia" />
+        <ButtonSecondary goTo="opis" />
+      </div>
+      {/* Sections */}
+      <div className={estatePageStyles.content}>
+        <div className={estatePageStyles.contentMain}>
+          <EstateDetailsSection title="Mieszkanie" id="informacje">
+            <div className={estatePageStyles.detailsWrapper}>
+              {mieszkanieDetails.map(detail => (
+                <SingleDetail detail={detail} />
+              ))}
+            </div>
+          </EstateDetailsSection>
 
-      <div className={estatePage.content}>
-        <div className={estatePage.contentMain}>
-          <EstateDetails
-            title={'Mieszkanie'}
-            details={[
-              [<FaSquare />, 'Powierzchnia Całkowita m2', nieruchomosc.powierzchniaCalkowitaM2],
-              [<FaElementor />, 'Pokoje', nieruchomosc.pokoje],
-              [<FaFire />, 'Ogrzewanie', nieruchomosc.ogrzewanie],
-              [<FaTint />, 'Ciepła woda', nieruchomosc.ciepaWoda],
+          <EstateDetailsSection title="Budynek">
+            <div className={estatePageStyles.detailsWrapper}>
+              {budynekDetails.map(detail => (
+                <SingleDetail detail={detail} />
+              ))}
+            </div>
+          </EstateDetailsSection>
 
-              [<FaStream />, 'Piętro', nieruchomosc.pitro],
-              [<FaCompass />, 'Ekspozycja okien', nieruchomosc.ekspozycjaOkien],
+          <EstateDetailsSection title="Opłaty">
+            <div className={estatePageStyles.detailsWrapper}>
+              {oplatyDetails.map(detail => (
+                <SingleDetail detail={detail} />
+              ))}
+            </div>
+          </EstateDetailsSection>
 
-              [<FaDungeon />, 'Piwnica', nieruchomosc.piwnica],
-              [<FaBoxOpen />, 'Balkon', nieruchomosc.balkon],
-              [<FaHands />, 'Gwarancja', nieruchomosc.gwarancja],
-            ]}
-          />
-
-          <EstateDetails
-            title={'Budynek'}
-            details={[
-              [<FaCity />, 'Rok budowy', nieruchomosc.rokBudowy],
-              [<FaAngleDoubleUp />, 'Winda', nieruchomosc.winda],
-              [<FaBuilding />, 'Rodzaj budynku', nieruchomosc.rodzajBudynku],
-              [<FaSortNumericUpAlt />, 'Liczba pięter', nieruchomosc.liczbaPiter],
-            ]}
-          />
-
-          <EstateDetails
-            title={'Opłaty'}
-            details={[
-              [<FaHandHoldingUsd />, 'Czynsz administracyjny', nieruchomosc.czynszAdministracyjny],
-              [<FaDollarSign />, 'Cena', nieruchomosc.cena],
-            ]}
-          />
-
-          <section className={estatePage.section}>
-            <div className={estatePage.label}>Lokalizacja</div>
-            <div className={estatePage.localizationWrapper}>
+          <EstateDetailsSection title="Lokalizacja" id="lokalizacja">
+            <div className={estatePageStyles.localizationWrapper}>
               <iframe
                 title="lokalizacja"
                 width={'100%'}
@@ -109,69 +141,57 @@ const EstatePageTemplate = props => {
                 style={{ border: '0' }}
                 src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyB3Qv0-byCedLJfXzuPYAflrNuDSPQMFLM&q=${nieruchomosc.lokalizacja.lat},${nieruchomosc.lokalizacja.lon}&zoom=16&center=${nieruchomosc.lokalizacja.lat},${nieruchomosc.lokalizacja.lon}`}
               />
-              <div className={estatePage.localizationDetailsWrapper}>
-                <div className={estatePage.detailField}>
-                  <div className={estatePage.detailFieldIcon}>{<FaMapMarkerAlt />}</div>
-                  <div className={estatePage.detailFieldLabel}>Rejon:</div>
-                  <div className={estatePage.detailFieldValue}>
-                    {nieruchomosc.miasto}, {nieruchomosc.dzielnica}
-                  </div>
-                </div>
-                <div className={estatePage.detailField}>
-                  <div className={estatePage.detailFieldIcon}>{<FaMapMarkerAlt />}</div>
-                  <div className={estatePage.detailFieldLabel}>Ulica:</div>
-                  <div className={estatePage.detailFieldValue}>{nieruchomosc.ulica}</div>
-                </div>
+              <div className={estatePageStyles.localizationDetailsWrapper}>
+                {lokalizacjaDetails.map(detail => (
+                  <SingleDetail detail={detail} />
+                ))}
               </div>
             </div>
-          </section>
+          </EstateDetailsSection>
 
-          <section className={estatePage.section}>
-            <div className={estatePage.label}>Zdjęcia</div>
-            <div className={estatePage.images}>
+          <EstateDetailsSection title="Zdjęcia" id="zdjęcia">
+            <div className={estatePageStyles.images}>
               {nieruchomosc.zdjecia &&
                 nieruchomosc.zdjecia.map(zdjecie => {
                   return <Img fluid={zdjecie.fluid} alt={zdjecie.title} />
                 })}
             </div>
-          </section>
+          </EstateDetailsSection>
 
-          <section className={estatePage.section}>
-            <div className={estatePage.label}>Opis</div>
-            <div className={estatePage.description}>
+          <EstateDetailsSection title="Opis" id="opis">
+            <div className={estatePageStyles.description}>
               {nieruchomosc.opis && documentToReactComponents(JSON.parse(nieruchomosc.opis.raw))}
             </div>
-          </section>
+          </EstateDetailsSection>
         </div>
 
-        <div className={estatePage.contentContactAgent}>
-          <div className={estatePage.agentHeader}>Skontaktuj się z agentem</div>
-          <div className={estatePage.agentPhoto}>
+        <div className={estatePageStyles.contentContactAgent}>
+          <div className={estatePageStyles.agentHeader}>Skontaktuj się z agentem</div>
+          <div className={estatePageStyles.agentPhoto}>
             <Img
               fluid={nieruchomosc.zdjecieAgentaNieruchomosci.fluid}
               alt={nieruchomosc.zdjecieAgentaNieruchomosci.title}
             />
           </div>
-          <ul className={estatePage.agentDetails}>
+          <ul className={estatePageStyles.agentDetails}>
             <li>
-              <div className={estatePage.agentDetailIcon}>
+              <div className={estatePageStyles.agentDetailIcon}>
                 <FaRegUser />
               </div>
               {nieruchomosc.imieINazwiskoAgentaNieruchomosci}
             </li>
+
             <li>
-              <div className={estatePage.agentDetailIcon}>
+              <div className={estatePageStyles.agentDetailIcon}>
                 <FaMobileAlt />
               </div>
-
               {nieruchomosc.numerTelefonuAgentaNieruchomosci}
             </li>
 
             <li>
-              <div className={estatePage.agentDetailIcon}>
+              <div className={estatePageStyles.agentDetailIcon}>
                 <FaRegEnvelope />
               </div>
-
               {nieruchomosc.emailAgentaNieruchomosci}
             </li>
           </ul>
@@ -214,22 +234,17 @@ export const query = graphql`
         lat
         lon
       }
-      opis {
-        raw
-      }
       zdjecia {
         fluid {
           ...GatsbyContentfulFluid
         }
         title
       }
+      opis {
+        raw
+      }
     }
   }
 `
 
 export default EstatePageTemplate
-
-// We dont import useStaticQuery in template files
-// In templates we have to define our query and export it
-// there is no other way to access context which contains slug
-// It is passed as a prop to the component

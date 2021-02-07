@@ -1,0 +1,98 @@
+@import '../../styles/variables.scss';
+
+.result {
+  height: 22rem;
+  width: 100%;
+  margin-bottom: 8rem;
+  padding-bottom: 1rem;
+  display: flex;
+  border-bottom: 1px solid #e1e1e1;
+  .images {
+    width: 25%;
+    margin-right: 2.5rem;
+    background-color: $color-primary;
+    color: $color-tetiary;
+    .image {
+      height: 100%;
+    }
+  }
+  .details {
+    width: 55%;
+    h4,
+    h5,
+    li {
+      margin-bottom: 2rem;
+    }
+    h4 {
+      font-size: 2rem;
+      font-weight: 500;
+      cursor: pointer;
+      &:hover {
+        color: $color-primary;
+      }
+    }
+    h5 {
+      font-size: 1.6rem;
+      font-weight: 300;
+    }
+
+    ul {
+      @include two-col-grid;
+      font-size: 1.3rem;
+    }
+  }
+  .shortDescription {
+    color: #a3a3a3;
+    span {
+      height: 3.6rem;
+      padding: 0.5rem 1rem;
+      margin-right: 0.8rem;
+      margin-top: 0.2rem;
+      background-color: $color-tetiary;
+      font-size: 2.2rem;
+      color: $color-secondary;
+      float: left;
+    }
+    .stylemebitch {
+    }
+  }
+  .priceAndButton {
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+    h3 {
+      font-size: 3.5rem;
+      font-weight: 400;
+      text-align: right;
+      span {
+        font-size: 3rem;
+      }
+    }
+    p {
+      margin-top: 1rem;
+      font-size: 1.8rem;
+      color: #999;
+      text-align: right;
+      span {
+        font-size: 1.5rem;
+      }
+    }
+    button {
+      width: 18rem;
+      padding: 1.5rem 2rem;
+      background-color: $color-primary;
+      font-size: 1.6rem;
+      color: $color-secondary;
+      transition: all 0.1s;
+      cursor: pointer;
+      &:hover {
+        transform: scale(1.02);
+      }
+      &:active {
+        transform: scale(0.98);
+      }
+    }
+  }
+}

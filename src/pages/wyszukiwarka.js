@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
-import { graphql, useStaticQuery, Link } from 'gatsby'
-import Img from 'gatsby-image'
-import { FaFire, FaSquare, FaElementor, FaStream } from 'react-icons/fa'
+import { RiSearch2Line } from 'react-icons/ri'
+import { graphql, useStaticQuery } from 'gatsby'
 
 import wyszukiwarkaStyles from '../styles/wyszukiwarka.module.scss'
 import Layout from '../components/layout'
 import Head from '../components/head'
+import PostBlockView from '../components/postBlockView/postBlockView'
 
 const Wyszukiwarka = () => {
   const data = useStaticQuery(graphql`
@@ -20,6 +20,7 @@ const Wyszukiwarka = () => {
             pokoje
             ogrzewanie
             pitro
+            krotkiOpis
             createdAt(formatString: "MM DD YYYY")
             powierzchniaCalkowitaM2
             zdjecia {
@@ -40,39 +41,28 @@ const Wyszukiwarka = () => {
   const [sortOption, setSortOption] = useState('createdAt')
   const [filters, setFilters] = useState([])
 
-  const insertSpaceAfterThirdChar = num => {
-    let numStr = num.toString()
-
-    if (numStr.length < 3) {
-      return num
-    } else if (numStr.length % 3 === 0) {
-      return numStr.replace(/\d{3}/g, '$& ')
-    } else if (numStr.length % 3 === 1) {
-      return numStr.replace(/^\d{1}/g, '$& ').replace(/\d{3}/g, '$& ')
-    } else if (numStr.length % 3 === 2) {
-      return numStr.replace(/^\d{2}/g, '$& ').replace(/\d{3}/g, '$& ')
-    }
-  }
-
   const sortArray = type => {
-    setSortOption(type)
+    setSortOption(type.slice(0, -1))
     let sorted = []
 
-    if (type === 'createdAt') {
+    if (type.slice(0, -1) === 'createdAt') {
       sorted = [...nieruchomosciArr].sort((a, b) => {
-        const c = new Date(a.node[type])
-        const d = new Date(b.node[type])
+        const c = new Date(a.node[type.slice(0, -1)])
+        const d = new Date(b.node[type.slice(0, -1)])
         return c - d
       })
-    } else {
-      sorted = [...nieruchomosciArr].sort((a, b) => b.node[type] - a.node[type])
+    } else if (type.slice(-1) === 'D') {
+      sorted = [...nieruchomosciArr].sort(
+        (a, b) => b.node[type.slice(0, -1)] - a.node[type.slice(0, -1)]
+      )
+    } else if (type.slice(-1) === 'A') {
+      sorted = [...nieruchomosciArr].sort(
+        (a, b) => a.node[type.slice(0, -1)] - b.node[type.slice(0, -1)]
+      )
     }
     setNieruchomosciArr(sorted)
   }
-
   const filterArray = e => {
-    console.log(filters)
-
     e.preventDefault()
     let filtered = [...nieruchomosci]
 
@@ -88,18 +78,18 @@ const Wyszukiwarka = () => {
 
     setNieruchomosciArr(filtered)
   }
-
   const addFilter = (e, condition) => {
     setFilters([
       ...filters.filter(el => el.filterName !== e.target.name),
       { filterName: e.target.name, val: e.target.value, condition: condition },
     ])
-    console.log(filters)
   }
 
   return (
     <Layout>
       <Head title="Wyszukiwarka" />
+
+      {/* Filter */}
       <div className={wyszukiwarkaStyles.filterBar}>
         <form onSubmit={e => filterArray(e)}>
           <input
@@ -146,109 +136,35 @@ const Wyszukiwarka = () => {
               )
             }
           />
-          <input type="submit" value="Szukaj" />
+          <button>Więcej filtrów</button>
+          <button type="submit">
+            <RiSearch2Line />
+          </button>
         </form>
       </div>
+
       <div className={wyszukiwarkaStyles.body}>
         <div className={wyszukiwarkaStyles.header}>Wyniki wyszukiwania</div>
-
+        {/* Sort */}
         <div className={wyszukiwarkaStyles.sortBar}>
           <div>Ilość nieruchmości: {nieruchomosciArr.length}</div>
           <div className={wyszukiwarkaStyles.dropdownListSort}>
-            {/* <button className={wyszukiwarkaStyles.sortButton}>
-              Sortuj wg{' '}
-              <div className={wyszukiwarkaStyles.chevronDownWrapper}>
-                <span className={wyszukiwarkaStyles.chevronDown} />
-              </div>
-            </button> */}
             <select
               onChange={e => sortArray(e.target.value)}
               className={wyszukiwarkaStyles.sortOptions}
             >
-              <option value="createdAt">Nowości</option>
-              <option value="cena">Najwyższa cena</option>
-              <option value="powierzchniaCalkowitaM2">Największy metraż</option>
-              {/* <option value={{ sortBy: 'cena', order: 'DESC' }}>Najwyższa cena</option> */}
-              {/* <option value="powierzchniaCalkowitaM2">Największy metraż</option> */}
+              <option value="createdAtD">Nowości</option>
+              <option value="cenaD">Najwyższa cena</option>
+              <option value="cenaA">Najniższa cena</option>
+              <option value="powierzchniaCalkowitaM2D">Największy metraż</option>
+              <option value="powierzchniaCalkowitaM2A">Najniższy metraż</option>
             </select>
           </div>
         </div>
-
+        {/* Results */}
         <div className={wyszukiwarkaStyles.results}>
           {nieruchomosciArr.map(edge => {
-            return (
-              <div className={wyszukiwarkaStyles.result} key={edge.node.id}>
-                <div className={wyszukiwarkaStyles.images}>
-                  {edge.node.zdjecia ? (
-                    <Link
-                      to={`/nieruchomosc/${edge.node.id}/${edge.node.miasto}/${edge.node.ulica}`}
-                    >
-                      <Img
-                        className={wyszukiwarkaStyles.image}
-                        fluid={edge.node.zdjecia[0].fluid}
-                      />
-                    </Link>
-                  ) : (
-                    <p>Brak zdjęć</p>
-                  )}
-                </div>
-                <div className={wyszukiwarkaStyles.details}>
-                  <Link to={`/nieruchomosc/${edge.node.id}/${edge.node.miasto}/${edge.node.ulica}`}>
-                    <h4>{`${edge.node.miasto}, ${edge.node.dzielnica}`}</h4>
-                  </Link>
-                  <h5>{edge.node.ulica} </h5>
-                  <ul>
-                    <li>
-                      <FaSquare />
-                      <p>Pow. całkowita</p>
-                      {edge.node.powierzchniaCalkowitaM2}
-                    </li>
-                    <li>
-                      <FaFire />
-                      <p>Ogrzewanie</p>
-                      {edge.node.ogrzewanie}
-                    </li>
-                    <li>
-                      <FaStream />
-                      <p>Liczba pokoi</p>
-                      {edge.node.pokoje}
-                    </li>
-                    <li>
-                      <FaElementor />
-                      <p>Piętro</p>
-                      {edge.node.pitro}
-                    </li>
-                    <li>
-                      <FaElementor />
-                      <p>Piętro</p>
-                      {edge.node.pitro}
-                    </li>
-                    <li>
-                      <FaElementor />
-                      <p>Piętro</p>
-                      {edge.node.pitro}
-                    </li>
-                  </ul>
-                </div>
-
-                <div className={wyszukiwarkaStyles.priceAndButton}>
-                  <div>
-                    <h3>
-                      {insertSpaceAfterThirdChar(edge.node.cena)} <span>PLN</span>
-                    </h3>
-                    <p>
-                      {Math.round(edge.node.cena / edge.node.powierzchniaCalkowitaM2)}{' '}
-                      <span>
-                        PLN/m<sup>2</sup>
-                      </span>
-                    </p>
-                  </div>
-                  <Link to={`/nieruchomosc/${edge.node.id}/${edge.node.miasto}/${edge.node.ulica}`}>
-                    <button>Sprawdź</button>
-                  </Link>
-                </div>
-              </div>
-            )
+            return <PostBlockView nieruchomosc={edge.node} />
           })}
         </div>
       </div>

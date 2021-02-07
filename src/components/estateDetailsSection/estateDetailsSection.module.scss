@@ -1,0 +1,17 @@
+@import '../../styles/variables.scss';
+
+.section {
+  padding: 2.9rem 0 1.5rem 0;
+  border-bottom: 1px solid rgba(#a3a3a3, 0.3);
+  display: flex;
+  .label {
+    width: 15rem;
+    padding-right: 1rem;
+    font-size: 1.7rem;
+    font-weight: 600;
+  }
+  .detailsContainer {
+    width: 100%;
+    font-size: 1.3rem;
+  }
+}

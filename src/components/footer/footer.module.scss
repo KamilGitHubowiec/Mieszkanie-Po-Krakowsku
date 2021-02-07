@@ -1,0 +1,19 @@
+@import '../../styles/variables.scss';
+
+.footer {
+  padding: 2rem $margin-horizontal;
+  background-color: $color-tetiary;
+  color: $color-secondary;
+  margin-top: 4rem;
+  .top {
+    padding: 1rem 0.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .bottom {
+    padding: 1rem 0.5rem 0 0.5rem;
+    border-top: 1px solid $color-secondary;
+    font-size: 1.3rem;
+  }
+}

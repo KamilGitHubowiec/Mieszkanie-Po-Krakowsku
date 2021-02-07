@@ -1,0 +1,17 @@
+@import '../../styles/variables.scss';
+
+.linkToSection {
+  padding: 1.5rem;
+  border: 1px solid $color-primary;
+  background-color: $color-secondary;
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0.1rem;
+  color: $color-tetiary;
+  text-transform: uppercase;
+  cursor: pointer;
+  &:hover {
+    background-color: $color-primary;
+    color: $color-secondary;
+  }
+}

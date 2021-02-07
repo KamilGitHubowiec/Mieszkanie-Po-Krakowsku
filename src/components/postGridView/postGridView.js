@@ -1,10 +1,12 @@
 import React from 'react'
 import { graphql, useStaticQuery, Link } from 'gatsby'
+import { FiCameraOff } from 'react-icons/fi'
 
-import recentBlogPost from '../styles/recentBlogPost.module.scss'
-import Slider from '../components/slider'
+import recentBlogPost from './postGridView.module.scss'
+import SliderSmall from '../sliderSmall/sliderSmall'
+import { insertBreakBetweenDigits } from '../functions'
 
-const RecentBlogPost = () => {
+const PostGridView = () => {
   const data = useStaticQuery(graphql`
     query {
       allContentfulNieruchomosc(sort: { fields: createdAt, order: ASC }) {
@@ -32,18 +34,20 @@ const RecentBlogPost = () => {
     <div className={recentBlogPost.recentBlogPost}>
       <h2>Ostatnio dodane nieruchmości</h2>
       <div className={recentBlogPost.posts}>
-        {data.allContentfulNieruchomosc.edges.map(edge => {
+        {data.allContentfulNieruchomosc.edges.slice(0, 6).map(edge => {
           return (
             <div className={recentBlogPost.post}>
               {edge.node.zdjecia ? (
                 <div className={recentBlogPost.img}>
-                  <Slider
+                  <SliderSmall
                     images={edge.node.zdjecia}
                     linkTo={`/nieruchomosc/${edge.node.id}/${edge.node.miasto}/${edge.node.ulica}`}
                   />
                 </div>
               ) : (
-                <div className={recentBlogPost.img}>Brak zdjęć</div>
+                <div className={recentBlogPost.img}>
+                  <FiCameraOff />
+                </div>
               )}
               <h3>
                 <Link to={`/nieruchomosc/${edge.node.id}/${edge.node.miasto}/${edge.node.ulica}`}>
@@ -53,16 +57,21 @@ const RecentBlogPost = () => {
               <h4> {edge.node.ulica} </h4>
               <div className={recentBlogPost.description}>
                 <p>
-                  {edge.node.cena
-                    .toString()
-                    .match(/.{1,3}/g)
-                    .join(' ')}{' '}
+                  {insertBreakBetweenDigits(edge.node.cena)}
                   <span>PLN</span>
                 </p>
                 <p>
-                  {Math.round(edge.node.cena / edge.node.powierzchniaCalkowitaM2)}{' '}
+                  {insertBreakBetweenDigits(
+                    Math.round(edge.node.cena / edge.node.powierzchniaCalkowitaM2)
+                  )}
                   <span>
                     PLN/m<sup>2</sup>
+                  </span>
+                </p>
+                <p>
+                  {edge.node.powierzchniaCalkowitaM2}{' '}
+                  <span>
+                    m<sup>2</sup>
                   </span>
                 </p>
                 <p>
@@ -80,4 +89,4 @@ const RecentBlogPost = () => {
   )
 }
 
-export default RecentBlogPost
+export default PostGridView

@@ -2,7 +2,7 @@ import React from 'react'
 import { graphql, useStaticQuery } from 'gatsby'
 import BackgroundImage from 'gatsby-background-image'
 
-import header from '../styles/header.module.scss'
+import header from './header.module.scss'
 
 const Header = () => {
   const data = useStaticQuery(graphql`

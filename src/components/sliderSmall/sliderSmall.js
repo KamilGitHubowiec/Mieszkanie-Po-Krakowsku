@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
+import { FiChevronLeft, FiChevronRight } from 'react-icons/fi'
 import { Link } from 'gatsby'
 import Img from 'gatsby-image'
 
-import slider from '../styles/slider.module.scss'
+import slider from './slider.module.scss'
 
-const Slider = ({ images, linkTo }) => {
+const SliderSmall = ({ images, linkTo }) => {
   const sliderArr = [images[images.length - 1], ...images, images[0]]
   const [x, setX] = useState(0)
   const [transition, setTransition] = useState('0.5s')
@@ -12,12 +13,12 @@ const Slider = ({ images, linkTo }) => {
   const goLeft = () => {
     if (x >= 0) return
     setX(x + 100)
-    setTransition('ease-in-out 0.7s')
+    setTransition('0.8s')
   }
   const goRight = () => {
     if (x === -100 * (sliderArr.length - 1)) return
     setX(x - 100)
-    setTransition('ease-in-out 0.7s')
+    setTransition('0.8s')
   }
 
   // When the transition on the last img ends it moves
@@ -55,8 +56,16 @@ const Slider = ({ images, linkTo }) => {
       })}
       {images.length > 1 && (
         <div>
-          <button className={slider.goLeft} onClick={goLeft}></button>
-          <button className={slider.goRight} onClick={goRight}></button>
+          <div className={slider.goLeft} onClick={goLeft}>
+            <span>
+              <FiChevronLeft />
+            </span>
+          </div>
+          <div className={slider.goRight} onClick={goRight}>
+            <span>
+              <FiChevronRight />
+            </span>
+          </div>
         </div>
       )}
       )
@@ -64,4 +73,4 @@ const Slider = ({ images, linkTo }) => {
   )
 }
 
-export default Slider
+export default SliderSmall

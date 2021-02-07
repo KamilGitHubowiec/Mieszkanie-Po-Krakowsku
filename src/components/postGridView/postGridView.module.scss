@@ -1,12 +1,11 @@
-@import './variables.scss';
+@import '../../styles/variables.scss';
 
 .recentBlogPost {
-  padding: 0 12rem;
+  padding: 0 $margin-horizontal;
 
   h2 {
     font-size: 3.5rem;
     font-weight: 400;
-    color: $color-primary;
     margin-bottom: 3rem;
   }
 }
@@ -20,7 +19,12 @@
     height: 27rem;
     width: 100%;
     margin-bottom: 2rem;
-    background-color: $color-tetiary;
+    background-color: $color-secondary;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 6rem;
+    color: $color-tetiary;
   }
 }
 
@@ -29,10 +33,10 @@
 
   h3 {
     display: inline-block;
-    transition: 0.1s;
+    transition: all 0.1s;
 
     &:hover {
-      color: $color-secondary;
+      color: $color-primary;
     }
   }
 
@@ -51,7 +55,7 @@
 
   p {
     font-weight: 600;
-    color: $color-secondary;
+    color: $color-primary;
 
     span {
       font-weight: 400;

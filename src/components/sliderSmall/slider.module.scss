@@ -1,0 +1,64 @@
+@import '../../styles/variables.scss';
+
+.slider {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.slide {
+  position: relative;
+  min-width: 100%;
+  min-height: 100%;
+}
+
+.img {
+  height: 27rem;
+}
+
+%btn-styles {
+  width: 3rem;
+  height: 3rem;
+  position: absolute;
+  font-size: 2rem;
+  color: rgba(#f9f9f9, 0.7);
+  cursor: pointer;
+  span {
+    position: absolute;
+    transition: all 0.2s;
+  }
+}
+
+.goLeft {
+  left: 1rem;
+  @extend %btn-styles;
+  span {
+    right: 0.5rem;
+  }
+  &:hover {
+    span {
+      right: 1rem;
+      font-size: 2.1rem;
+    }
+  }
+}
+
+.goRight {
+  right: 1rem;
+  @extend %btn-styles;
+  span {
+    left: 0.5rem;
+  }
+  &:hover {
+    span {
+      left: 1rem;
+      font-size: 2.1rem;
+    }
+  }
+}
