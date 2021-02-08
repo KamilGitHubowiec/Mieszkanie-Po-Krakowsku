@@ -143,7 +143,7 @@ const Wyszukiwarka = () => {
         </form>
       </div>
 
-      <div className={wyszukiwarkaStyles.body}>
+      <div className={`${wyszukiwarkaStyles.body} ${wyszukiwarkaStyles.pdngHz}`}>
         <div className={wyszukiwarkaStyles.header}>Wyniki wyszukiwania</div>
         {/* Sort */}
         <div className={wyszukiwarkaStyles.sortBar}>

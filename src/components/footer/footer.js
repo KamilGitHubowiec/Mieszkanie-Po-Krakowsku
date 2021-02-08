@@ -15,7 +15,7 @@ const Footer = () => {
   `)
 
   return (
-    <div className={footer.footer}>
+    <div className={`${footer.footer} ${footer.pdngHz}`}>
       <ul className={footer.top}>
         <li>MIESZKANIE PO KRAKOWSKU</li>
         <li>Skontakuj się z nami:</li>

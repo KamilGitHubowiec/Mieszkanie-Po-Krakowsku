@@ -11,3 +11,41 @@ $margin-horizontal: 12rem;
   display: grid;
   grid-template-columns: 1fr 1fr;
 }
+
+// Media Queries
+@mixin respond($breakpoint) {
+  // @if $breakpoint == phone {
+  //   @media (max-width: 37.5rem) {
+  //     @content;
+  //   } //600px
+  // }
+  // @if $breakpoint == tab-port {
+  //   @media (max-width: 56.25rem) {
+  //     @content;
+  //   } //900px
+  // }
+  @if $breakpoint == tab-land {
+    @media (max-width: 70.3em) {
+      @content;
+    } //1125px
+  }
+  // @if $breakpoint == tab-land-big {
+  //   @media (max-width: 90.62rem) {
+  //     @content;
+  //   } //1450px
+  // }
+  // @if $breakpoint == big-desktop {
+  //   @media (min-width: 125rem) {
+  //     @content;
+  //   } //2000px
+  // }
+}
+
+.pdngHz {
+  padding-left: 12rem;
+  padding-right: 12rem;
+  @include respond(tab-land) {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}

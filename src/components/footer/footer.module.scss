@@ -1,7 +1,8 @@
 @import '../../styles/variables.scss';
 
 .footer {
-  padding: 2rem $margin-horizontal;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
   background-color: $color-tetiary;
   color: $color-secondary;
   margin-top: 4rem;

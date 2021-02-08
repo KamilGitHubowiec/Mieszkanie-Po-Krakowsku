@@ -31,7 +31,7 @@ const PostGridView = () => {
   `)
 
   return (
-    <div className={recentBlogPost.recentBlogPost}>
+    <div className={`${recentBlogPost.recentBlogPost} ${recentBlogPost.pdngHz}`}>
       <h2>Ostatnio dodane nieruchmości</h2>
       <div className={recentBlogPost.posts}>
         {data.allContentfulNieruchomosc.edges.slice(0, 6).map(edge => {

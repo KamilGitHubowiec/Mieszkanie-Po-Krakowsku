@@ -94,7 +94,7 @@ const EstatePageTemplate = props => {
         </div>
       </header>
       {/* Navigation Buttons */}
-      <div className={estatePageStyles.navigationButtons}>
+      <div className={`${estatePageStyles.navigationButtons} ${estatePageStyles.pdngHz}`}>
         <Link className={estatePageStyles.backToWyszukiwarka} to="/wyszukiwarka">
           <FaArrowCircleLeft />
           Wyszukiwarka
@@ -105,7 +105,7 @@ const EstatePageTemplate = props => {
         <ButtonSecondary goTo="opis" />
       </div>
       {/* Sections */}
-      <div className={estatePageStyles.content}>
+      <div className={`${estatePageStyles.content} ${estatePageStyles.pdngHz}`}>
         <div className={estatePageStyles.contentMain}>
           <EstateDetailsSection title="Mieszkanie" id="informacje">
             <div className={estatePageStyles.detailsWrapper}>

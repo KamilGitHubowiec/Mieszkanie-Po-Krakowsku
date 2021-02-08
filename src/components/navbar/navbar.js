@@ -5,7 +5,7 @@ import navbar from './navbar.module.scss'
 
 const Navbar = () => {
   return (
-    <nav className={navbar.nav}>
+    <nav className={`${navbar.nav} ${navbar.pdngHz}`}>
       <Link to="/">Logo</Link>
 
       <div className={navbar.links}>
