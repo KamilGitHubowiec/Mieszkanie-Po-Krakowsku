@@ -1,0 +1,130 @@
+@import '../../styles/variables.scss';
+
+.contactFormWrapper {
+  padding-top: 6rem;
+  padding-bottom: 8rem;
+  border-top: 1px solid rgba(#a3a3a3, 0.3);
+  h1 {
+    margin-bottom: 2rem;
+  }
+  .contactFormBody {
+    display: flex;
+    flex-direction: row;
+    box-shadow: 0.6rem 0.6rem 1.5rem rgb(228, 227, 227);
+    @include respond(tab-port) {
+      flex-direction: column;
+    }
+    svg {
+      color: $color-tetiary;
+    }
+    .contactDetails {
+      width: 40%;
+      padding: 3rem 5rem;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      background-color: $color-primary;
+      @include respond(tab-port) {
+        width: 100%;
+        flex-direction: row;
+      }
+      @include respond(phone-wide) {
+        flex-direction: column;
+      }
+      @include respond(phone-wide) {
+        padding: 3rem 1rem 3rem 1rem;
+      }
+      &::before {
+        width: 4rem;
+        height: 4rem;
+        position: absolute;
+        top: 3rem;
+        right: -2rem;
+        transform: rotate(45deg);
+        content: '';
+        background-color: $color-primary;
+        @include respond(tab-port) {
+          top: unset;
+          right: unset;
+          bottom: -2rem;
+          left: 4rem;
+        }
+      }
+      .contactText {
+        margin-bottom: 20rem;
+        @include respond(tab-port) {
+          margin: 0 5rem 3rem 0;
+        }
+        p {
+          margin-top: 2rem;
+          line-height: 2.5rem;
+        }
+        svg {
+          font-size: 5rem;
+        }
+      }
+      .contactAddress {
+        font-size: 1.8rem;
+        > * {
+          margin-bottom: 1rem;
+          display: flex;
+          align-items: center;
+          span {
+            margin-left: 1rem;
+          }
+        }
+      }
+    }
+    .contactForm {
+      width: 60%;
+      padding: 3rem 7rem;
+      background-color: $color-secondary;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      @include respond(tab-port) {
+        width: 100%;
+        padding: 3rem 5rem;
+      }
+      @include respond(phone-wide) {
+        padding: 3rem 1rem 3rem 1rem;
+      }
+      h3 {
+        font-size: 2.5rem;
+        margin-bottom: 10rem;
+        @include respond(tab-port) {
+          margin-bottom: 3rem;
+        }
+      }
+      form {
+        display: flex;
+        flex-direction: column;
+        input,
+        textarea {
+          margin-bottom: 2rem;
+          padding: 1rem;
+          border-radius: 3px;
+          background-color: #f9f9f9;
+          border: 2px solid transparent;
+          &:focus {
+            border: 2px solid $color-primary;
+          }
+        }
+        textarea {
+          height: 10rem;
+        }
+        button {
+          padding: 1rem;
+          background-color: $color-primary;
+          font-size: 1.7rem;
+          color: $color-secondary;
+          cursor: pointer;
+          &:hover {
+            background-color: $color-tetiary;
+            color: $color-secondary;
+          }
+        }
+      }
+    }
+  }
+}

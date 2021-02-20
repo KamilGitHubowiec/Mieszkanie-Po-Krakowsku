@@ -1,5 +1,6 @@
 import React from 'react'
 import { FaFire, FaSquare, FaElementor, FaStream } from 'react-icons/fa'
+import { FiCameraOff } from 'react-icons/fi'
 import { Link } from 'gatsby'
 import Img from 'gatsby-image'
 
@@ -11,8 +12,8 @@ const PostBlockView = ({ nieruchomosc }) => {
   const basicDetails = [
     [<FaSquare />, 'Pow. całkowita', nieruchomosc.powierzchniaCalkowitaM2],
     [<FaFire />, 'Ogrzewanie', nieruchomosc.ogrzewanie],
-    [<FaStream />, 'Liczba pokoi', nieruchomosc.pokoje],
-    [<FaElementor />, 'Piętro', nieruchomosc.pitro],
+    [<FaStream />, 'Liczba pokoi', nieruchomosc.liczbaPokoi],
+    [<FaElementor />, 'Piętro', nieruchomosc.pietro],
   ]
 
   return (
@@ -20,14 +21,31 @@ const PostBlockView = ({ nieruchomosc }) => {
       <div className={postBlockViewStyles.images}>
         {nieruchomosc.zdjecia ? (
           <Link
+            className={postBlockViewStyles.imgWrapper}
             to={`/nieruchomosc/${nieruchomosc.id}/${nieruchomosc.miasto}/${nieruchomosc.ulica}`}
           >
-            <Img className={postBlockViewStyles.image} fluid={nieruchomosc.zdjecia[0].fluid} />
+            <Img className={postBlockViewStyles.img} fluid={nieruchomosc.zdjecia[0].fluid} />
+            {nieruchomosc.aktualne ? (
+              <span
+                className={postBlockViewStyles.isAvailableTag}
+                style={{ backgroundColor: '#00ab58' }}
+              >
+                Aktualne
+              </span>
+            ) : (
+              <span
+                className={postBlockViewStyles.isAvailableTag}
+                style={{ backgroundColor: 'red' }}
+              >
+                Sprzedane
+              </span>
+            )}
           </Link>
         ) : (
-          <p>Brak zdjęć</p>
+          <FiCameraOff />
         )}
       </div>
+
       <div className={postBlockViewStyles.details}>
         <Link to={`/nieruchomosc/${nieruchomosc.id}/${nieruchomosc.miasto}/${nieruchomosc.ulica}`}>
           <h4>{`${nieruchomosc.miasto}, ${nieruchomosc.dzielnica}`}</h4>
@@ -61,8 +79,11 @@ const PostBlockView = ({ nieruchomosc }) => {
             </span>
           </p>
         </div>
-        <Link to={`/nieruchomosc/${nieruchomosc.id}/${nieruchomosc.miasto}/${nieruchomosc.ulica}`}>
-          <button>Sprawdź</button>
+        <Link
+          className={postBlockViewStyles.buttonLink}
+          to={`/nieruchomosc/${nieruchomosc.id}/${nieruchomosc.miasto}/${nieruchomosc.ulica}`}
+        >
+          Sprawdź
         </Link>
       </div>
     </div>

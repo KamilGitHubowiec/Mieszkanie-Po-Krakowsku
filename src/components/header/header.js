@@ -1,6 +1,6 @@
 import React from 'react'
-import { graphql, useStaticQuery } from 'gatsby'
-import BackgroundImage from 'gatsby-background-image'
+import { graphql, useStaticQuery, Link } from 'gatsby'
+import Img from 'gatsby-image'
 
 import header from './header.module.scss'
 
@@ -20,13 +20,16 @@ const Header = () => {
 
   return (
     <div className={header.header}>
-      <BackgroundImage
+      <Img
         className={header.image}
         fluid={data.file.childImageSharp.fluid}
         alt={data.file.name}
-      >
-        <div className={header.overlay}>Mieszkanie Po Krakowsku</div>
-      </BackgroundImage>
+      ></Img>
+      <div className={header.overlay}>
+        <h1>Mieszkanie Po Krakowsku</h1>
+        <h2>Najlepsze ceny w Krakowie</h2>
+        <Link to="/wyszukiwarka">Zobacz całą ofertę</Link>
+      </div>
     </div>
   )
 }

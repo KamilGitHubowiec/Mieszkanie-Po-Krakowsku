@@ -4,11 +4,25 @@
   padding: 2.9rem 0 1.5rem 0;
   border-bottom: 1px solid rgba(#a3a3a3, 0.3);
   display: flex;
+  span {
+    display: block;
+    content: ' ';
+    margin-top: -10rem;
+    padding-bottom: 10rem;
+    visibility: hidden;
+    pointer-events: none;
+  }
+  @include respond(tab-port) {
+    flex-direction: column;
+  }
   .label {
     width: 15rem;
     padding-right: 1rem;
     font-size: 1.7rem;
     font-weight: 600;
+    @include respond(tab-port) {
+      padding-bottom: 3rem;
+    }
   }
   .detailsContainer {
     width: 100%;

@@ -1,19 +1,55 @@
 @import './variables.scss';
 
 .header {
-  height: 80vh;
+  height: 60rem;
   width: 100%;
   position: relative;
-
+  background-color: #f9f9f9;
+  @include respond(tab-port) {
+    height: 50rem;
+  }
+  @include respond(phone) {
+    height: 40rem;
+  }
+  @include respond(phone-small) {
+    height: 30rem;
+  }
+  @media (max-width: 300px) {
+    height: 29rem;
+  }
   .img {
-    height: 80vh !important;
+    height: 60rem !important;
     width: 100%;
+    @include respond(tab-port) {
+      display: none;
+    }
+  }
+  .slider {
+    display: none;
+    @include respond(tab-port) {
+      height: 41rem !important;
+      display: block;
+    }
+    @include respond(phone) {
+      height: 32rem !important;
+    }
+    @include respond(phone-small) {
+      height: 23rem !important;
+    }
+    @media (max-width: 300px) {
+      height: 17rem !important;
+    }
   }
 
   .baners {
-    bottom: 0;
     position: absolute;
+    bottom: 0;
     color: $color-secondary;
+    z-index: 10;
+    @include respond(tab-port) {
+      position: unset;
+      width: 100%;
+    }
 
     .banerSmall {
       padding: 2.5rem 5rem;
@@ -21,6 +57,12 @@
       display: inline-block;
       font-size: 2.3rem;
       font-weight: 600;
+      @include respond(tab-port) {
+        width: 100%;
+        padding: 0.5rem 2rem;
+        font-size: 1.6rem;
+        font-weight: 400;
+      }
     }
 
     .banerBig {
@@ -28,19 +70,44 @@
       background-color: $color-tetiary;
       display: flex;
       font-weight: 600;
+      @include respond(tab-port) {
+        width: 100%;
+        padding: 0.5rem 2rem;
+        display: flex;
+        justify-content: space-between;
+        font-size: 1.6rem;
+        font-weight: 400;
+      }
+      @include respond(phone) {
+        font-size: 1.2rem;
+      }
 
       div:first-child {
         padding-right: 6rem;
-        border-right: 2px solid black;
+        border-right: 2px solid $color-secondary;
+        @include respond(phone) {
+          padding-right: 1rem;
+        }
       }
 
       div:last-child {
         padding-left: 6rem;
+        @include respond(phone) {
+          padding-left: 1rem;
+        }
       }
 
       h1 {
-        font-size: 3.5rem;
         margin-bottom: 0.8rem;
+        font-size: 3.5rem;
+        @include respond(tab-port) {
+          font-size: 1.6rem;
+          font-weight: 400;
+        }
+
+        @include respond(phone) {
+          font-size: 1.2rem;
+        }
       }
     }
   }
@@ -48,6 +115,10 @@
 
 .navigationButtons {
   padding-top: 3rem;
+  background-color: #f9f9f9;
+  @include respond(tab-port) {
+    display: none;
+  }
 
   > * {
     margin-right: 0.5rem;
@@ -71,19 +142,44 @@
 
 .content {
   width: 100%;
-  padding-top: 2rem;
+  padding-top: 4rem;
+  padding-bottom: 6rem;
   display: flex;
-
+  background-color: #f9f9f9;
+  @include respond(tab-land) {
+    flex-direction: column;
+  }
+  @include respond(phone-small) {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  @media (max-width: 300px) {
+    padding: 0;
+  }
   .contentMain {
-    width: 78%;
+    width: 76%;
+    padding: 2rem;
     background-color: $color-secondary;
-
+    @include respond(tab-land) {
+      padding: 0 2rem;
+      width: 100%;
+    }
     .detailsWrapper {
       @include two-col-grid;
     }
-
     .localizationWrapper {
       width: 100%;
+      iframe {
+        @include respond(tab-land-big) {
+          height: 40rem;
+        }
+        @include respond(phone) {
+          height: 30rem;
+        }
+        @include respond(phone-small) {
+          height: 25rem;
+        }
+      }
       .localizationDetailsWrapper {
         margin-top: 2rem;
         @include two-col-grid;
@@ -94,22 +190,37 @@
       width: 100%;
       @include two-col-grid;
       gap: 1rem;
+      .img {
+        height: 24rem;
+      }
     }
 
     .description {
       width: 100%;
+      font-size: 1.6rem;
       line-height: 2.6rem;
       color: #a3a3a3;
     }
   }
 
   .contentContactAgent {
-    max-height: 49rem;
-    width: 22%;
+    max-height: 47rem;
+    width: 24%;
     margin-left: 4rem;
     position: sticky;
     top: 8rem;
-
+    background-color: #fff;
+    @include respond(tab-land) {
+      display: none;
+    }
+    @include respond(phone) {
+      max-height: max-content;
+      width: 100%;
+      margin: 0;
+      position: initial;
+      padding: 8rem 0;
+      display: block;
+    }
     .agentHeader {
       padding: 1.5rem 2rem;
       text-align: center;
@@ -117,26 +228,34 @@
       font-size: 1.7rem;
       color: $color-secondary;
     }
-
     .agentPhoto {
       padding: 1rem 2rem;
       overflow: hidden;
+      .img {
+        height: 27rem;
+      }
     }
-
     .agentDetails {
       padding: 0 2rem;
       font-size: 1.4rem;
       color: #5b5a5a;
-
+      @include respond(tab-land-big) {
+        font-size: 1.2rem;
+      }
       li {
         margin-top: 1.5rem;
         display: flex;
-
         .agentDetailIcon {
           font-size: 1.6rem;
           margin-right: 1rem;
         }
       }
     }
+  }
+}
+
+.hider {
+  @include respond(tab-port) {
+    display: none;
   }
 }

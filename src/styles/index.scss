@@ -24,3 +24,15 @@ body {
   font-size: 1.6rem;
   font-weight: 400;
 }
+
+// Scroolbar
+::-webkit-scrollbar {
+  width: 1rem;
+}
+::-webkit-scrollbar-track {
+  background: #fff;
+}
+::-webkit-scrollbar-thumb {
+  background: #bdbdbd;
+  border-radius: 2px;
+}

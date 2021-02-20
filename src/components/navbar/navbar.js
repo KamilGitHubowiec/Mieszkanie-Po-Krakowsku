@@ -1,25 +1,44 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { FiMenu } from 'react-icons/fi'
 import { Link } from 'gatsby'
 
-import navbar from './navbar.module.scss'
+import navbarStyles from './navbar.module.scss'
+import NavbarSideDrawer from '../navbarSideDrawer/navbarSideDrawer'
+import Backdrop from '../backdrop/backdrop'
 
 const Navbar = () => {
-  return (
-    <nav className={`${navbar.nav} ${navbar.pdngHz}`}>
-      <Link to="/">Logo</Link>
+  const [show, setShow] = useState(false)
+  const openSideDrawer = () => {
+    setShow(true)
+  }
+  const closeSideDrawer = () => {
+    setShow(false)
+  }
 
-      <div className={navbar.links}>
-        <Link className={navbar.link} to="/wyszukiwarka">
+  return (
+    <nav className={`${navbarStyles.nav} ${navbarStyles.pdngHz}`}>
+      <Link className={navbarStyles.logo} to="/">
+        Strona Główna
+      </Link>
+
+      <div className={navbarStyles.links}>
+        <Link className={navbarStyles.link} to="/wyszukiwarka">
           WYSZUKIWARKA
         </Link>
 
-        <Link className={navbar.link} to="/about">
+        {/* <Link className={navbarStyles.link} to="/about">
           O NAS
         </Link>
 
-        <Link className={navbar.link} to="/contact">
+        <Link className={navbarStyles.link} to="/contact">
           KONTAKT
-        </Link>
+        </Link> */}
+      </div>
+
+      <div className={navbarStyles.smallScreenNav}>
+        <FiMenu className={navbarStyles.burgerMenu} onClick={openSideDrawer} />
+        <NavbarSideDrawer show={show} closeSideDrawer={closeSideDrawer} />
+        <Backdrop show={show} click={closeSideDrawer} />
       </div>
     </nav>
   )

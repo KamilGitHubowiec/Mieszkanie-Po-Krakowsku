@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { RiSearch2Line } from 'react-icons/ri'
+import { HiFilter } from 'react-icons/hi'
 import { graphql, useStaticQuery } from 'gatsby'
 
 import wyszukiwarkaStyles from '../styles/wyszukiwarka.module.scss'
@@ -17,12 +18,13 @@ const Wyszukiwarka = () => {
             dzielnica
             ulica
             cena
-            pokoje
+            liczbaPokoi
             ogrzewanie
-            pitro
+            pietro
             krotkiOpis
             createdAt(formatString: "MM DD YYYY")
             powierzchniaCalkowitaM2
+            aktualne
             zdjecia {
               fluid {
                 ...GatsbyContentfulFluid
@@ -37,10 +39,13 @@ const Wyszukiwarka = () => {
   `)
 
   const nieruchomosci = data.allContentfulNieruchomosc.edges
+  let filterDropdownAnimation = `${wyszukiwarkaStyles.filterDropdown} ${wyszukiwarkaStyles.pdngHz}`
+  const [show, setShow] = useState(false)
   const [nieruchomosciArr, setNieruchomosciArr] = useState(nieruchomosci)
   const [sortOption, setSortOption] = useState('createdAt')
   const [filters, setFilters] = useState([])
 
+  // Sort
   const sortArray = type => {
     setSortOption(type.slice(0, -1))
     let sorted = []
@@ -62,6 +67,7 @@ const Wyszukiwarka = () => {
     }
     setNieruchomosciArr(sorted)
   }
+  // Filter on submit
   const filterArray = e => {
     e.preventDefault()
     let filtered = [...nieruchomosci]
@@ -76,13 +82,22 @@ const Wyszukiwarka = () => {
       return filtered.sort((a, b) => b.node[sortOption] - a.node[sortOption])
     })
 
+    setShow(false)
     setNieruchomosciArr(filtered)
   }
+  // Add filter when typing
   const addFilter = (e, condition) => {
     setFilters([
       ...filters.filter(el => el.filterName !== e.target.name),
       { filterName: e.target.name, val: e.target.value, condition: condition },
     ])
+  }
+
+  const showDropdown = () => {
+    setShow(!show)
+  }
+  if (show) {
+    filterDropdownAnimation = `${wyszukiwarkaStyles.filterDropdown} ${wyszukiwarkaStyles.pdngHz} ${wyszukiwarkaStyles.open}`
   }
 
   return (
@@ -91,57 +106,118 @@ const Wyszukiwarka = () => {
 
       {/* Filter */}
       <div className={wyszukiwarkaStyles.filterBar}>
-        <form onSubmit={e => filterArray(e)}>
-          <input
-            type="text"
-            placeholder="Szukaj po miastach i ulicach"
-            name="miasto"
-            onChange={e =>
-              addFilter(e, (currNode, filterVal) =>
-                currNode['miasto'].toLowerCase().includes(filterVal.toLowerCase())
-              )
-            }
-          />
-          <input
-            type="number"
-            placeholder="Cena od"
-            name="cena od"
-            onChange={e => addFilter(e, (currNode, filterVal) => filterVal <= currNode['cena'])}
-          />
-          <input
-            type="number"
-            placeholder="Cena do"
-            name="cena do"
-            onChange={e => addFilter(e, (currNode, filterVal) => filterVal >= currNode['cena'])}
-          />
-          <input
-            type="number"
-            placeholder="m2 od"
-            name="m2 od"
-            onChange={e =>
-              addFilter(
-                e,
-                (currNode, filterVal) => filterVal <= currNode['powierzchniaCalkowitaM2']
-              )
-            }
-          />
-          <input
-            type="number"
-            placeholder="m2 do"
-            name="m2 do"
-            onChange={e =>
-              addFilter(
-                e,
-                (currNode, filterVal) => filterVal >= currNode['powierzchniaCalkowitaM2']
-              )
-            }
-          />
-          <button>Więcej filtrów</button>
-          <button type="submit">
-            <RiSearch2Line />
-          </button>
+        <form onSubmit={filterArray}>
+          <div className={wyszukiwarkaStyles.filterVisible}>
+            <input
+              type="text"
+              placeholder="Szukaj po miastach i ulicach"
+              name="miasto"
+              onChange={e =>
+                addFilter(e, (currNode, filterVal) =>
+                  currNode['miasto'].toLowerCase().includes(filterVal.toLowerCase())
+                )
+              }
+            />
+            <input
+              type="number"
+              placeholder="Cena od"
+              name="cena od"
+              onChange={e => addFilter(e, (currNode, filterVal) => filterVal <= currNode['cena'])}
+            />
+            <input
+              type="number"
+              placeholder="Cena do"
+              name="cena do"
+              onChange={e => addFilter(e, (currNode, filterVal) => filterVal >= currNode['cena'])}
+            />
+            <input
+              type="number"
+              placeholder="m2 od"
+              name="m2 od"
+              onChange={e =>
+                addFilter(
+                  e,
+                  (currNode, filterVal) => filterVal <= currNode['powierzchniaCalkowitaM2']
+                )
+              }
+            />
+            <input
+              type="number"
+              placeholder="m2 do"
+              name="m2 do"
+              onChange={e =>
+                addFilter(
+                  e,
+                  (currNode, filterVal) => filterVal >= currNode['powierzchniaCalkowitaM2']
+                )
+              }
+            />
+            <div className={wyszukiwarkaStyles.showMoreFilters} onClick={showDropdown}>
+              <HiFilter />
+            </div>
+            <button type="submit">
+              <RiSearch2Line />
+            </button>
+          </div>
         </form>
       </div>
+      <form className={filterDropdownAnimation} onSubmit={filterArray}>
+        <input
+          type="text"
+          placeholder="Szukaj po miastach i ulicach"
+          name="miasto"
+          onChange={e =>
+            addFilter(e, (currNode, filterVal) =>
+              currNode['miasto'].toLowerCase().includes(filterVal.toLowerCase())
+            )
+          }
+        />
+        <input
+          type="number"
+          placeholder="Liczba pokoi od"
+          name="pokoje od"
+          onChange={e =>
+            addFilter(e, (currNode, filterVal) => filterVal <= currNode['liczbaPokoi'])
+          }
+        />
+        <input
+          type="number"
+          placeholder="Liczba pokoi do"
+          name="pokoje do"
+          onChange={e =>
+            addFilter(e, (currNode, filterVal) => filterVal >= currNode['liczbaPokoi'])
+          }
+        />
+        <input
+          type="number"
+          placeholder="Cena od"
+          name="cena od"
+          onChange={e => addFilter(e, (currNode, filterVal) => filterVal <= currNode['cena'])}
+        />
+        <input
+          type="number"
+          placeholder="Cena do"
+          name="cena do"
+          onChange={e => addFilter(e, (currNode, filterVal) => filterVal >= currNode['cena'])}
+        />
+        <input
+          type="number"
+          placeholder="m2 od"
+          name="m2 od"
+          onChange={e =>
+            addFilter(e, (currNode, filterVal) => filterVal <= currNode['powierzchniaCalkowitaM2'])
+          }
+        />
+        <input
+          type="number"
+          placeholder="m2 do"
+          name="m2 do"
+          onChange={e =>
+            addFilter(e, (currNode, filterVal) => filterVal >= currNode['powierzchniaCalkowitaM2'])
+          }
+        />
+        <input style={{ display: 'none' }} type="submit"></input>
+      </form>
 
       <div className={`${wyszukiwarkaStyles.body} ${wyszukiwarkaStyles.pdngHz}`}>
         <div className={wyszukiwarkaStyles.header}>Wyniki wyszukiwania</div>

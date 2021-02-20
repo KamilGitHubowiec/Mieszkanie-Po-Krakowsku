@@ -1,23 +1,93 @@
 @import '../../styles/variables.scss';
 
 .result {
-  height: 22rem;
   width: 100%;
   margin-bottom: 8rem;
-  padding-bottom: 1rem;
-  display: flex;
-  border-bottom: 1px solid #e1e1e1;
+  padding: 1rem;
+  border-radius: 3px;
+  display: grid;
+  grid-template-columns: 1.5fr 3.5fr 1.5fr;
+  grid-template-rows: auto;
+  gap: 2rem;
+  grid-template-areas:
+    'img details priceButton'
+    'img details priceButton'
+    'img details priceButton';
+  transition: all 0.1s;
+  &:last-child {
+    margin-bottom: 0;
+  }
+  &:hover {
+    background-color: $color-secondary;
+    transform: scale(1.02);
+    box-shadow: 0.6rem 0.6rem 1.5rem rgb(228, 227, 227);
+  }
+  @include respond(tab-land) {
+    grid-template-areas:
+      'img img img'
+      'details details details'
+      'priceButton priceButton priceButton';
+  }
   .images {
-    width: 25%;
-    margin-right: 2.5rem;
-    background-color: $color-primary;
+    height: 20rem;
+    grid-area: img;
+    font-size: 5rem;
     color: $color-tetiary;
-    .image {
-      height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: $color-secondary;
+    @include respond(tab-land) {
+      height: 50rem;
+    }
+    @include respond(tab-port) {
+      height: 43rem;
+    }
+    @include respond(phone-wide) {
+      height: 35rem;
+    }
+    @include respond(phone) {
+      height: 30rem;
+    }
+    @include respond(phone-small) {
+      height: 20rem;
+    }
+    .imgWrapper {
+      width: 100%;
+      position: relative;
+      .img {
+        width: 100%;
+        height: 20rem;
+        @include respond(tab-land) {
+          height: 50rem;
+        }
+        @include respond(tab-port) {
+          height: 43rem;
+        }
+        @include respond(phone-wide) {
+          height: 35rem;
+        }
+        @include respond(phone) {
+          height: 30rem;
+        }
+        @include respond(phone-small) {
+          height: 20rem;
+        }
+      }
+      .isAvailableTag {
+        padding: 0.5rem 1rem;
+        background-color: $color-primary;
+        position: absolute;
+        top: 0;
+        right: 0;
+        font-size: 1.3rem;
+        color: $color-secondary;
+      }
     }
   }
+
   .details {
-    width: 55%;
+    grid-area: details;
     h4,
     h5,
     li {
@@ -40,28 +110,31 @@
       @include two-col-grid;
       font-size: 1.3rem;
     }
-  }
-  .shortDescription {
-    color: #a3a3a3;
-    span {
-      height: 3.6rem;
-      padding: 0.5rem 1rem;
-      margin-right: 0.8rem;
-      margin-top: 0.2rem;
-      background-color: $color-tetiary;
-      font-size: 2.2rem;
-      color: $color-secondary;
-      float: left;
+    .shortDescription {
+      color: #a3a3a3;
+      @include respond(tab-land) {
+        display: none;
+      }
+      span {
+        height: 3.6rem;
+        padding: 0.5rem 1rem;
+        margin-right: 0.8rem;
+        margin-top: 0.2rem;
+        background-color: $color-tetiary;
+        font-size: 2.2rem;
+        color: $color-secondary;
+        float: left;
+      }
     }
-    .stylemebitch {
-    }
   }
+
   .priceAndButton {
-    width: 20%;
+    grid-area: priceButton;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: flex-end;
+
     h3 {
       font-size: 3.5rem;
       font-weight: 400;
@@ -72,6 +145,7 @@
     }
     p {
       margin-top: 1rem;
+      margin-bottom: 2rem;
       font-size: 1.8rem;
       color: #999;
       text-align: right;
@@ -79,19 +153,22 @@
         font-size: 1.5rem;
       }
     }
-    button {
+    .buttonLink {
       width: 18rem;
       padding: 1.5rem 2rem;
       background-color: $color-primary;
+      transition: all 0.1s;
+      text-transform: uppercase;
+      text-align: center;
       font-size: 1.6rem;
       color: $color-secondary;
-      transition: all 0.1s;
       cursor: pointer;
-      &:hover {
-        transform: scale(1.02);
+      @include respond(tab-land) {
+        width: 100%;
       }
-      &:active {
+      &:hover {
         transform: scale(0.98);
+        background-color: $color-tetiary;
       }
     }
   }

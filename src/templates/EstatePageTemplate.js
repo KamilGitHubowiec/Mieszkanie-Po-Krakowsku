@@ -1,7 +1,6 @@
 import React from 'react'
 import {
   FaSquare,
-  FaTint,
   FaCompass,
   FaDungeon,
   FaFire,
@@ -30,6 +29,7 @@ import Layout from '../components/layout'
 import Head from '../components/head'
 import EstateDetailsSection from '../components/estateDetailsSection/estateDetailsSection'
 import SingleDetail from '../components/singleDetail/singleDetail'
+import SliderSmall from '../components/sliderSmall/sliderSmall'
 import ButtonSecondary from '../components/buttonSecondary/buttonSecondary'
 import { insertBreakBetweenDigits } from '../components/functions'
 
@@ -37,10 +37,9 @@ const EstatePageTemplate = props => {
   const nieruchomosc = props.data.contentfulNieruchomosc
   const mieszkanieDetails = [
     [<FaSquare />, 'Powierzchnia Całkowita m2', nieruchomosc.powierzchniaCalkowitaM2],
-    [<FaElementor />, 'Pokoje', nieruchomosc.pokoje],
+    [<FaElementor />, 'Pokoje', nieruchomosc.liczbaPokoi],
     [<FaFire />, 'Ogrzewanie', nieruchomosc.ogrzewanie],
-    [<FaTint />, 'Ciepła woda', nieruchomosc.ciepaWoda],
-    [<FaStream />, 'Piętro', nieruchomosc.pitro],
+    [<FaStream />, 'Piętro', nieruchomosc.pietro],
     [<FaCompass />, 'Ekspozycja okien', nieruchomosc.ekspozycjaOkien],
     [<FaDungeon />, 'Piwnica', nieruchomosc.piwnica],
     [<FaBoxOpen />, 'Balkon', nieruchomosc.balkon],
@@ -66,11 +65,6 @@ const EstatePageTemplate = props => {
       <Head title={nieruchomosc.ulica} />
       {/* Header */}
       <header className={estatePageStyles.header}>
-        <Img
-          className={estatePageStyles.img}
-          fluid={nieruchomosc.zdjecia[0].fluid}
-          alt={nieruchomosc.zdjecia[0].title}
-        />
         <div className={estatePageStyles.baners}>
           <div className={estatePageStyles.banerSmall}>{nieruchomosc.ulica}</div>
           <div className={estatePageStyles.banerBig}>
@@ -92,6 +86,14 @@ const EstatePageTemplate = props => {
             </div>
           </div>
         </div>
+        <Img
+          className={estatePageStyles.img}
+          fluid={nieruchomosc.zdjecia[1].fluid}
+          alt={nieruchomosc.zdjecia[0].title}
+        />
+        <div className={estatePageStyles.slider}>
+          <SliderSmall images={nieruchomosc.zdjecia} />
+        </div>
       </header>
       {/* Navigation Buttons */}
       <div className={`${estatePageStyles.navigationButtons} ${estatePageStyles.pdngHz}`}>
@@ -107,7 +109,7 @@ const EstatePageTemplate = props => {
       {/* Sections */}
       <div className={`${estatePageStyles.content} ${estatePageStyles.pdngHz}`}>
         <div className={estatePageStyles.contentMain}>
-          <EstateDetailsSection title="Mieszkanie" id="informacje">
+          <EstateDetailsSection title="Mieszkanie" goToId={'informacje'}>
             <div className={estatePageStyles.detailsWrapper}>
               {mieszkanieDetails.map(detail => (
                 <SingleDetail detail={detail} />
@@ -131,15 +133,32 @@ const EstatePageTemplate = props => {
             </div>
           </EstateDetailsSection>
 
-          <EstateDetailsSection title="Lokalizacja" id="lokalizacja">
+          <div className={estatePageStyles.hider}>
+            <EstateDetailsSection title="Zdjęcia" goToId={'zdjęcia'}>
+              <div className={estatePageStyles.images}>
+                {nieruchomosc.zdjecia &&
+                  nieruchomosc.zdjecia.map(zdjecie => {
+                    return (
+                      <Img
+                        className={estatePageStyles.img}
+                        fluid={zdjecie.fluid}
+                        alt={zdjecie.title}
+                      />
+                    )
+                  })}
+              </div>
+            </EstateDetailsSection>
+          </div>
+
+          <EstateDetailsSection title="Lokalizacja" goToId={'lokalizacja'}>
             <div className={estatePageStyles.localizationWrapper}>
               <iframe
                 title="lokalizacja"
                 width={'100%'}
-                height="500"
+                height="450"
                 frameborder="0"
                 style={{ border: '0' }}
-                src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyB3Qv0-byCedLJfXzuPYAflrNuDSPQMFLM&q=${nieruchomosc.lokalizacja.lat},${nieruchomosc.lokalizacja.lon}&zoom=16&center=${nieruchomosc.lokalizacja.lat},${nieruchomosc.lokalizacja.lon}`}
+                src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyCjkcBKvbFBSRxIJZ_NnSecUsF0PFgpBtc&q=${nieruchomosc.lokalizacja.lat},${nieruchomosc.lokalizacja.lon}&zoom=16&center=${nieruchomosc.lokalizacja.lat},${nieruchomosc.lokalizacja.lon}`}
               />
               <div className={estatePageStyles.localizationDetailsWrapper}>
                 {lokalizacjaDetails.map(detail => (
@@ -149,16 +168,7 @@ const EstatePageTemplate = props => {
             </div>
           </EstateDetailsSection>
 
-          <EstateDetailsSection title="Zdjęcia" id="zdjęcia">
-            <div className={estatePageStyles.images}>
-              {nieruchomosc.zdjecia &&
-                nieruchomosc.zdjecia.map(zdjecie => {
-                  return <Img fluid={zdjecie.fluid} alt={zdjecie.title} />
-                })}
-            </div>
-          </EstateDetailsSection>
-
-          <EstateDetailsSection title="Opis" id="opis">
+          <EstateDetailsSection title="Opis" goToId={'opis'}>
             <div className={estatePageStyles.description}>
               {nieruchomosc.opis && documentToReactComponents(JSON.parse(nieruchomosc.opis.raw))}
             </div>
@@ -169,8 +179,9 @@ const EstatePageTemplate = props => {
           <div className={estatePageStyles.agentHeader}>Skontaktuj się z agentem</div>
           <div className={estatePageStyles.agentPhoto}>
             <Img
-              fluid={nieruchomosc.zdjecieAgentaNieruchomosci.fluid}
-              alt={nieruchomosc.zdjecieAgentaNieruchomosci.title}
+              className={estatePageStyles.img}
+              fluid={nieruchomosc.zdjecieAgenta.fluid}
+              alt={nieruchomosc.zdjecieAgenta.title}
             />
           </div>
           <ul className={estatePageStyles.agentDetails}>
@@ -178,21 +189,21 @@ const EstatePageTemplate = props => {
               <div className={estatePageStyles.agentDetailIcon}>
                 <FaRegUser />
               </div>
-              {nieruchomosc.imieINazwiskoAgentaNieruchomosci}
+              {nieruchomosc.imieINazwiskoAgenta}
             </li>
 
             <li>
               <div className={estatePageStyles.agentDetailIcon}>
                 <FaMobileAlt />
               </div>
-              {nieruchomosc.numerTelefonuAgentaNieruchomosci}
+              {nieruchomosc.numerTelefonuAgenta}
             </li>
 
             <li>
               <div className={estatePageStyles.agentDetailIcon}>
                 <FaRegEnvelope />
               </div>
-              {nieruchomosc.emailAgentaNieruchomosci}
+              {nieruchomosc.emailAgenta}
             </li>
           </ul>
         </div>
@@ -209,23 +220,22 @@ export const query = graphql`
       ulica
       powierzchniaCalkowitaM2
       cena
-      pokoje
+      liczbaPokoi
       ogrzewanie
-      ciepaWoda
       rokBudowy
       winda
       rodzajBudynku
-      liczbaPiter
-      pitro
+      liczbaPieter
+      pietro
       ekspozycjaOkien
-      czynszAdministracyjny
       piwnica
       balkon
       gwarancja
-      imieINazwiskoAgentaNieruchomosci
-      numerTelefonuAgentaNieruchomosci
-      emailAgentaNieruchomosci
-      zdjecieAgentaNieruchomosci {
+      imieINazwiskoAgenta
+      numerTelefonuAgenta
+      emailAgenta
+      czynszAdministracyjny
+      zdjecieAgenta {
         fluid {
           ...GatsbyContentfulFluid
         }

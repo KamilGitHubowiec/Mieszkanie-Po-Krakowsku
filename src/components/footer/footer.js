@@ -1,5 +1,5 @@
 import React from 'react'
-import { graphql, useStaticQuery } from 'gatsby'
+import { graphql, useStaticQuery, Link } from 'gatsby'
 
 import footer from './footer.module.scss'
 
@@ -16,19 +16,22 @@ const Footer = () => {
 
   return (
     <div className={`${footer.footer} ${footer.pdngHz}`}>
-      <ul className={footer.top}>
-        <li>MIESZKANIE PO KRAKOWSKU</li>
-        <li>Skontakuj się z nami:</li>
-        <li>+ 48 12 123 12 32</li>
-        <li>email@mieszkanieporakwosku.pl</li>
-      </ul>
+      <div className={footer.top}>
+        <h3>MIESZKANIE PO KRAKOWSKU</h3>
+        <div className={footer.contactDetails}>
+          <h4>Skontakuj się z nami:</h4>
+          <p>+ 48 12 123 12 32</p>
+          <p>email@mieszkanieporakwosku.pl</p>
+          <p>Pn-pt 1000 - 1700</p>
+        </div>
+        <Link to="https://www.instagram.com/mieszkanie_po_krakowsku/" target="_blank">
+          Instagram
+        </Link>
+      </div>
       <div className={footer.bottom}>
-        Strona stworzona przez{' '}
-        <a href="www.linkedin.com/in/kamil-góralewicz-03964a15b" target="_blank">
-          {' '}
-          {data.site.siteMetadata.author}
-        </a>
-        , © 2021
+        <Link to="https://www.linkedin.com/in/kamil-góralewicz-03964a15b" target="_blank">
+          Copyright {data.site.siteMetadata.author}, © 2021
+        </Link>
       </div>
     </div>
   )

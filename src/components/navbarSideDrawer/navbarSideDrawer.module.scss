@@ -1,0 +1,36 @@
+@import '../../styles/variables.scss';
+
+.sideDrawerWrapper {
+  height: 100vh;
+  padding: 4rem 3rem;
+  background-color: $color-tetiary;
+  position: fixed;
+  top: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  font-size: 2rem;
+  font-weight: 600;
+  color: $color-secondary;
+  transition: all 0.1s ease-in;
+  transform: translateX(100%);
+  z-index: 90;
+  a {
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    span {
+      width: 20rem;
+    }
+  }
+}
+
+.closeButton {
+  margin-bottom: 5rem;
+  font-size: 3.5rem;
+  cursor: pointer;
+}
+
+.open {
+  transform: translateX(0%);
+}
