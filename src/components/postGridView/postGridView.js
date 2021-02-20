@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { graphql, useStaticQuery, Link } from 'gatsby'
 import { FiCameraOff } from 'react-icons/fi'
 

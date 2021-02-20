@@ -21,7 +21,7 @@ const Footer = () => {
         <div className={footer.contactDetails}>
           <h4>Skontakuj się z nami:</h4>
           <p>+ 48 12 123 12 32</p>
-          <p>email@mieszkanieporakwosku.pl</p>
+          <p>mieszkaniepokrakowsku@gmail.com</p>
           <p>Pn-pt 1000 - 1700</p>
         </div>
         <Link to="https://www.instagram.com/mieszkanie_po_krakowsku/" target="_blank">

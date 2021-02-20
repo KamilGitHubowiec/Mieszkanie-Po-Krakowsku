@@ -30,7 +30,7 @@ const ContactForm = () => {
             </div>
             <div>
               <GrMailOption />
-              <span>compafg@gmail.com</span>
+              <span>mieszkaniepokrakowsku@gmail.com</span>
             </div>
             <div>
               <GrCalendar />

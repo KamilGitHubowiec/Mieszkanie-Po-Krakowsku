@@ -10,7 +10,7 @@ import { insertBreakBetweenDigits } from '../functions'
 
 const PostBlockView = ({ nieruchomosc }) => {
   const basicDetails = [
-    [<FaSquare />, 'Pow. całkowita', nieruchomosc.powierzchniaCalkowitaM2],
+    [<FaSquare />, 'Pow. całkowita m2', nieruchomosc.powierzchniaCalkowitaM2],
     [<FaFire />, 'Ogrzewanie', nieruchomosc.ogrzewanie],
     [<FaStream />, 'Liczba pokoi', nieruchomosc.liczbaPokoi],
     [<FaElementor />, 'Piętro', nieruchomosc.pietro],
@@ -73,7 +73,9 @@ const PostBlockView = ({ nieruchomosc }) => {
             {insertBreakBetweenDigits(nieruchomosc.cena)} <span>PLN</span>
           </h3>
           <p>
-            {Math.round(nieruchomosc.cena / nieruchomosc.powierzchniaCalkowitaM2)}{' '}
+            {insertBreakBetweenDigits(
+              Math.round(nieruchomosc.cena / nieruchomosc.powierzchniaCalkowitaM2)
+            )}{' '}
             <span>
               PLN/m<sup>2</sup>
             </span>

@@ -160,9 +160,9 @@
     width: 76%;
     padding: 2rem;
     background-color: $color-secondary;
-    @include respond(tab-land) {
-      padding: 0 2rem;
+    @media (max-width: 1220px) {
       width: 100%;
+      padding: 0 2rem;
     }
     .detailsWrapper {
       @include two-col-grid;
@@ -188,11 +188,6 @@
 
     .images {
       width: 100%;
-      @include two-col-grid;
-      gap: 1rem;
-      .img {
-        height: 24rem;
-      }
     }
 
     .description {
@@ -210,7 +205,7 @@
     position: sticky;
     top: 8rem;
     background-color: #fff;
-    @include respond(tab-land) {
+    @media (max-width: 1220px) {
       display: none;
     }
     @include respond(phone) {
@@ -218,7 +213,7 @@
       width: 100%;
       margin: 0;
       position: initial;
-      padding: 8rem 0;
+      padding: 3rem 0;
       display: block;
     }
     .agentHeader {
@@ -233,6 +228,9 @@
       overflow: hidden;
       .img {
         height: 27rem;
+        @include respond(phone) {
+          height: 40rem;
+        }
       }
     }
     .agentDetails {

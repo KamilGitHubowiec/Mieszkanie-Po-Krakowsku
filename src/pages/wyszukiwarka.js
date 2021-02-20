@@ -22,7 +22,7 @@ const Wyszukiwarka = () => {
             ogrzewanie
             pietro
             krotkiOpis
-            createdAt(formatString: "MM DD YYYY")
+            createdAt(formatString: "YYYY-MM-DDTHH:mm:ss")
             powierzchniaCalkowitaM2
             aktualne
             zdjecia {
@@ -52,7 +52,7 @@ const Wyszukiwarka = () => {
 
     if (type.slice(0, -1) === 'createdAt') {
       sorted = [...nieruchomosciArr].sort((a, b) => {
-        const c = new Date(a.node[type.slice(0, -1)])
+        const c = new Date(a.node[type.slice(0, -1)].toString())
         const d = new Date(b.node[type.slice(0, -1)])
         return c - d
       })
@@ -96,6 +96,7 @@ const Wyszukiwarka = () => {
   const showDropdown = () => {
     setShow(!show)
   }
+
   if (show) {
     filterDropdownAnimation = `${wyszukiwarkaStyles.filterDropdown} ${wyszukiwarkaStyles.pdngHz} ${wyszukiwarkaStyles.open}`
   }

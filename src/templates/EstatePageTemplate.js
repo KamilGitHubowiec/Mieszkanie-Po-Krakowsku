@@ -30,6 +30,7 @@ import Head from '../components/head'
 import EstateDetailsSection from '../components/estateDetailsSection/estateDetailsSection'
 import SingleDetail from '../components/singleDetail/singleDetail'
 import SliderSmall from '../components/sliderSmall/sliderSmall'
+import SliderLarge from '../components/sliderLarge/sliderLarge'
 import ButtonSecondary from '../components/buttonSecondary/buttonSecondary'
 import { insertBreakBetweenDigits } from '../components/functions'
 
@@ -49,11 +50,11 @@ const EstatePageTemplate = props => {
     [<FaCity />, 'Rok budowy', nieruchomosc.rokBudowy],
     [<FaAngleDoubleUp />, 'Winda', nieruchomosc.winda],
     [<FaBuilding />, 'Rodzaj budynku', nieruchomosc.rodzajBudynku],
-    [<FaSortNumericUpAlt />, 'Liczba pięter', nieruchomosc.liczbaPiter],
+    [<FaSortNumericUpAlt />, 'Liczba pięter', nieruchomosc.liczbaPieter],
   ]
   const oplatyDetails = [
-    [<FaHandHoldingUsd />, 'Czynsz administracyjny', nieruchomosc.czynszAdministracyjny],
-    [<FaDollarSign />, 'Cena', nieruchomosc.cena],
+    [<FaHandHoldingUsd />, 'Czynsz administracyjny', `${nieruchomosc.czynszAdministracyjny} PLN`],
+    [<FaDollarSign />, 'Cena', `${insertBreakBetweenDigits(nieruchomosc.cena)} PLN`],
   ]
   const lokalizacjaDetails = [
     [<FaMapMarkerAlt />, 'Rejon', `${(nieruchomosc.miasto, nieruchomosc.dzielnica)}`],
@@ -88,7 +89,7 @@ const EstatePageTemplate = props => {
         </div>
         <Img
           className={estatePageStyles.img}
-          fluid={nieruchomosc.zdjecia[1].fluid}
+          fluid={nieruchomosc.zdjecia[0].fluid}
           alt={nieruchomosc.zdjecia[0].title}
         />
         <div className={estatePageStyles.slider}>
@@ -136,16 +137,7 @@ const EstatePageTemplate = props => {
           <div className={estatePageStyles.hider}>
             <EstateDetailsSection title="Zdjęcia" goToId={'zdjęcia'}>
               <div className={estatePageStyles.images}>
-                {nieruchomosc.zdjecia &&
-                  nieruchomosc.zdjecia.map(zdjecie => {
-                    return (
-                      <Img
-                        className={estatePageStyles.img}
-                        fluid={zdjecie.fluid}
-                        alt={zdjecie.title}
-                      />
-                    )
-                  })}
+                <SliderLarge images={nieruchomosc.zdjecia} />
               </div>
             </EstateDetailsSection>
           </div>

@@ -15,6 +15,7 @@
 .image {
   width: 100%;
   height: 80.5vh;
+  position: fixed;
   @include respond(phone-wide) {
     height: 60.5vh;
   }

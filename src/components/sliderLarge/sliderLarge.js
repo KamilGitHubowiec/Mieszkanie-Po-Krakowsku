@@ -1,70 +1,77 @@
-import { FiChevronLeft, FiChevronRight } from 'react-icons/fi'
-import { Link } from 'gatsby'
+import React, { useState } from 'react'
+import { BsChevronLeft, BsChevronRight } from 'react-icons/bs'
 import Img from 'gatsby-image'
 
-import slider from './slider.module.scss'
+import sliderLargeStyles from './sliderLarge.module.scss'
 
 const SliderLarge = ({ images }) => {
-  const sliderArr = [images[images.length - 1], ...images, images[0]]
-  const [x, setX] = useState(0)
-  const [transition, setTransition] = useState('0.5s')
+  const [showSlider, setShowSlider] = useState(false)
+  const [currentSlide, setCurrentSlide] = useState(0)
+  let sliderAnimation = `${sliderLargeStyles.sliderContainer}`
+
+  if (showSlider) {
+    sliderAnimation = `${sliderLargeStyles.sliderContainer} ${sliderLargeStyles.open}`
+  }
+
+  const openSlider = e => {
+    setCurrentSlide(images.findIndex(zdjecie => zdjecie.fluid.src === e.target.src.slice(5)))
+    setShowSlider(true)
+  }
+
+  const closeSlider = () => {
+    setShowSlider(false)
+  }
 
   const goLeft = () => {
-    if (x >= 0) return
-    setX(x + 100)
-    setTransition('0.8s')
-  }
-  const goRight = () => {
-    if (x === -100 * (sliderArr.length - 1)) return
-    setX(x - 100)
-    setTransition('0.8s')
+    if (currentSlide === 0) {
+      setCurrentSlide(images.length - 1)
+    } else {
+      setCurrentSlide(currentSlide - 1)
+    }
   }
 
-  const handleTransition = () => {
-    if (x === 0) {
-      setTransition('none')
-      setX(-100 * (sliderArr.length - 2))
-    }
-    if (x === -100 * (sliderArr.length - 1)) {
-      setTransition('none')
-      setX(-100)
+  const goRight = () => {
+    if (currentSlide === images.length - 1) {
+      setCurrentSlide(0)
+    } else {
+      setCurrentSlide(currentSlide + 1)
     }
   }
 
   return (
-    <div className={slider.slider}>
-      {sliderArr.map(item => {
-        return (
-          <div
-            className={slider.slide}
-            style={{
-              transition: `${transition}`,
-              transform: `translateX(${x}%)`,
-            }}
-            onTransitionEnd={handleTransition}
-          >
-            <Link to={linkTo}>
-              <Img className={slider.img} fluid={item.fluid} alt={item.title} />
-            </Link>
+    <>
+      <div className={sliderLargeStyles.imagesContainer}>
+        {images &&
+          images.map(zdjecie => {
+            return (
+              <div onClick={openSlider}>
+                <Img className={sliderLargeStyles.img} fluid={zdjecie.fluid} alt={zdjecie.title} />
+              </div>
+            )
+          })}
+      </div>
+      <div className={sliderAnimation}>
+        <div className={sliderLargeStyles.backdrop} onClick={closeSlider}></div>
+        <div className={sliderLargeStyles.popup}>
+          <Img
+            className={sliderLargeStyles.img}
+            fluid={images[currentSlide].fluid}
+            alt={images[0].title}
+          />
+
+          <div className={sliderLargeStyles.goLeft} onClick={goLeft}>
+            <BsChevronLeft />
           </div>
-        )
-      })}
-      {images.length > 1 && (
-        <div>
-          <div className={slider.goLeft} onClick={goLeft}>
-            <span>
-              <FiChevronLeft />
-            </span>
+          <div className={sliderLargeStyles.goRight} onClick={goRight}>
+            <BsChevronRight />
           </div>
-          <div className={slider.goRight} onClick={goRight}>
-            <span>
-              <FiChevronRight />
-            </span>
-          </div>
+
+          <div className={sliderLargeStyles.imageCounter}>{`${currentSlide + 1}/${
+            images.length
+          }`}</div>
         </div>
-      )}
-      )
-    </div>
+      </div>
+    </>
   )
 }
 
