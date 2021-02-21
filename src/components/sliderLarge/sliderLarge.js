@@ -14,9 +14,6 @@ const SliderLarge = ({ images }) => {
   }
 
   const openSlider = e => {
-    console.log(e.target.src)
-    console.log(e.target.src.slice(6))
-    console.log(images[0].fluid.src)
     setCurrentSlide(images.findIndex(zdjecie => zdjecie.fluid.src === e.target.src.slice(6)))
     setShowSlider(true)
   }
