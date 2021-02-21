@@ -14,10 +14,11 @@ const SliderLarge = ({ images }) => {
   }
 
   const openSlider = e => {
-    setCurrentSlide(images.findIndex(zdjecie => zdjecie.fluid.src === e.target.src.slice(5)))
-    setShowSlider(true)
-    console.log(e.target.src.slice(5))
+    console.log(e.target.fluid.src)
+    console.log(e.target.src.slice(6))
     console.log(images[0].fluid.src)
+    setCurrentSlide(images.findIndex(zdjecie => zdjecie.fluid.src === e.target.src.slice(6)))
+    setShowSlider(true)
   }
 
   const closeSlider = () => {
