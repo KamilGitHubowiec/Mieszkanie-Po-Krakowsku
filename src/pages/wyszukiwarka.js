@@ -163,61 +163,69 @@ const Wyszukiwarka = () => {
         </form>
       </div>
       <form className={filterDropdownAnimation} onSubmit={filterArray}>
-        <input
-          type="text"
-          placeholder="Szukaj po miastach i ulicach"
-          name="miasto"
-          onChange={e =>
-            addFilter(e, (currNode, filterVal) =>
-              currNode['miasto'].toLowerCase().includes(filterVal.toLowerCase())
-            )
-          }
-        />
-        <input
-          type="number"
-          placeholder="Liczba pokoi od"
-          name="pokoje od"
-          onChange={e =>
-            addFilter(e, (currNode, filterVal) => filterVal <= currNode['liczbaPokoi'])
-          }
-        />
-        <input
-          type="number"
-          placeholder="Liczba pokoi do"
-          name="pokoje do"
-          onChange={e =>
-            addFilter(e, (currNode, filterVal) => filterVal >= currNode['liczbaPokoi'])
-          }
-        />
-        <input
-          type="number"
-          placeholder="Cena od"
-          name="cena od"
-          onChange={e => addFilter(e, (currNode, filterVal) => filterVal <= currNode['cena'])}
-        />
-        <input
-          type="number"
-          placeholder="Cena do"
-          name="cena do"
-          onChange={e => addFilter(e, (currNode, filterVal) => filterVal >= currNode['cena'])}
-        />
-        <input
-          type="number"
-          placeholder="m2 od"
-          name="m2 od"
-          onChange={e =>
-            addFilter(e, (currNode, filterVal) => filterVal <= currNode['powierzchniaCalkowitaM2'])
-          }
-        />
-        <input
-          type="number"
-          placeholder="m2 do"
-          name="m2 do"
-          onChange={e =>
-            addFilter(e, (currNode, filterVal) => filterVal >= currNode['powierzchniaCalkowitaM2'])
-          }
-        />
-        <input style={{ display: 'none' }} type="submit"></input>
+        <div className={wyszukiwarkaStyles.inner}>
+          <input
+            type="text"
+            placeholder="Szukaj po miastach i ulicach"
+            name="miasto"
+            onChange={e =>
+              addFilter(e, (currNode, filterVal) =>
+                currNode['miasto'].toLowerCase().includes(filterVal.toLowerCase())
+              )
+            }
+          />
+          <input
+            type="number"
+            placeholder="Liczba pokoi od"
+            name="pokoje od"
+            onChange={e =>
+              addFilter(e, (currNode, filterVal) => filterVal <= currNode['liczbaPokoi'])
+            }
+          />
+          <input
+            type="number"
+            placeholder="Liczba pokoi do"
+            name="pokoje do"
+            onChange={e =>
+              addFilter(e, (currNode, filterVal) => filterVal >= currNode['liczbaPokoi'])
+            }
+          />
+          <input
+            type="number"
+            placeholder="Cena od"
+            name="cena od"
+            onChange={e => addFilter(e, (currNode, filterVal) => filterVal <= currNode['cena'])}
+          />
+          <input
+            type="number"
+            placeholder="Cena do"
+            name="cena do"
+            onChange={e => addFilter(e, (currNode, filterVal) => filterVal >= currNode['cena'])}
+          />
+          <input
+            type="number"
+            placeholder="m2 od"
+            name="m2 od"
+            onChange={e =>
+              addFilter(
+                e,
+                (currNode, filterVal) => filterVal <= currNode['powierzchniaCalkowitaM2']
+              )
+            }
+          />
+          <input
+            type="number"
+            placeholder="m2 do"
+            name="m2 do"
+            onChange={e =>
+              addFilter(
+                e,
+                (currNode, filterVal) => filterVal >= currNode['powierzchniaCalkowitaM2']
+              )
+            }
+          />
+          <input style={{ display: 'none' }} type="submit"></input>
+        </div>
       </form>
 
       <div className={`${wyszukiwarkaStyles.body} ${wyszukiwarkaStyles.pdngHz}`}>

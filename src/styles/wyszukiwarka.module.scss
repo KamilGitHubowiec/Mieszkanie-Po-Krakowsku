@@ -71,19 +71,27 @@
   padding-bottom: 4rem;
   border-bottom: 1px solid #e1e1e1;
   background-color: $color-secondary;
+  position: fixed;
+  top: 10rem;
   transform: translateY(-100%);
   transition: all 0.2s ease-in;
-  position: fixed;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2rem;
   opacity: 0;
   visibility: hidden;
   z-index: 70;
-  @media (max-width: 500px) {
-    grid-template-columns: 1fr;
+  overflow-y: scroll;
+  @media (max-height: 610px) {
+    bottom: 0;
+  }
+  .inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    @media (max-width: 500px) {
+      grid-template-columns: 1fr;
+    }
   }
   input {
+    height: 4.5rem;
     padding: 1.5rem 1rem;
     border: 1px solid #e1e1e1;
     border-radius: 5px;
