@@ -170,11 +170,11 @@ const EstatePageTemplate = props => {
         <div className={estatePageStyles.contentContactAgent}>
           <div className={estatePageStyles.agentHeader}>Skontaktuj się z agentem</div>
           <div className={estatePageStyles.agentPhoto}>
-            {/* <Img
+            <Img
               className={estatePageStyles.img}
               fluid={nieruchomosc.zdjecieAgenta.fluid}
               alt={nieruchomosc.zdjecieAgenta.title}
-            /> */}
+            />
           </div>
           <ul className={estatePageStyles.agentDetails}>
             <li>
@@ -227,6 +227,11 @@ export const query = graphql`
       numerTelefonuAgenta
       emailAgenta
       czynszAdministracyjny
+      zdjecieAgenta {
+        fluid {
+          ...GatsbyContentfulFluid
+        }
+      }
       lokalizacja {
         lat
         lon
