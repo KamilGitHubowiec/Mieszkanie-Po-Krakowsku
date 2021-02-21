@@ -114,8 +114,12 @@ const Wyszukiwarka = () => {
               placeholder="Szukaj po miastach i ulicach"
               name="miasto"
               onChange={e =>
-                addFilter(e, (currNode, filterVal) =>
-                  currNode['miasto'].toLowerCase().includes(filterVal.toLowerCase())
+                addFilter(
+                  e,
+                  (currNode, filterVal) =>
+                    currNode['miasto'].toLowerCase().includes(filterVal.toLowerCase()) ||
+                    currNode['ulica'].toLowerCase().includes(filterVal.toLowerCase()) ||
+                    currNode['dzielnica'].toLowerCase().includes(filterVal.toLowerCase())
                 )
               }
             />
