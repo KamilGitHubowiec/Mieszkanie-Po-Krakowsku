@@ -26,7 +26,7 @@ const ContactForm = () => {
             </div>
             <div>
               <GrPhone />
-              <span>+49 6 6767 66</span>
+              <span>736 848 567</span>
             </div>
             <div>
               <GrMailOption />
@@ -34,7 +34,7 @@ const ContactForm = () => {
             </div>
             <div>
               <GrCalendar />
-              <span>Pn - pt 800-1700</span>
+              <span>Pon - Sob od 09:00 do 20:00</span>
             </div>
           </div>
         </div>
