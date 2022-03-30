@@ -51,7 +51,7 @@ const SliderLarge = ({ images }) => {
           })}
       </div>
       <div className={sliderAnimation}>
-        <div className={sliderLargeStyles.backdrop} onClick={closeSlider}></div>
+        <div className={sliderLargeStyles.backdrop} onClick={closeSlider} />
         <div className={sliderLargeStyles.popup}>
           <Img
             className={sliderLargeStyles.img}

@@ -5,7 +5,7 @@ import Img from 'gatsby-image'
 import header from './header.module.scss'
 
 const Header = () => {
-  const data = useStaticQuery(graphql`
+  const logoImage = useStaticQuery(graphql`
     query {
       file(relativePath: { eq: "homeBackground.png" }) {
         childImageSharp {
@@ -22,12 +22,12 @@ const Header = () => {
     <div className={header.header}>
       <Img
         className={header.image}
-        fluid={data.file.childImageSharp.fluid}
-        alt={data.file.name}
-      ></Img>
+        fluid={logoImage.file.childImageSharp.fluid}
+        alt={logoImage.file.name}
+      />
       <div className={header.overlay}>
         <h1>Mieszkanie Po Krakowsku</h1>
-        <h2>Najlepsze ceny w Krakowie</h2>
+        <h2>Najlepsze mieszkania w Krakowie</h2>
         <Link to="/wyszukiwarka">Zobacz całą ofertę</Link>
       </div>
     </div>

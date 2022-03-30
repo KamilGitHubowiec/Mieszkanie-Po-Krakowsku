@@ -15,9 +15,6 @@ import {
   FaAngleDoubleUp,
   FaBoxOpen,
   FaMapMarkerAlt,
-  FaRegUser,
-  FaRegEnvelope,
-  FaMobileAlt,
   FaArrowCircleLeft,
 } from 'react-icons/fa'
 import { graphql, Link } from 'gatsby'
@@ -33,6 +30,7 @@ import SliderSmall from '../components/sliderSmall/sliderSmall'
 import SliderLarge from '../components/sliderLarge/sliderLarge'
 import ButtonSecondary from '../components/buttonSecondary/buttonSecondary'
 import { insertBreakBetweenDigits } from '../components/functions'
+import { ContactAgentBlock } from '../components/contact-agent-block/contact-agent-block'
 
 const EstatePageTemplate = props => {
   const nieruchomosc = props.data.contentfulNieruchomosc
@@ -77,13 +75,6 @@ const EstatePageTemplate = props => {
             </div>
             <div>
               <h1>{insertBreakBetweenDigits(nieruchomosc.cena)} PLN</h1>
-              <p>
-                {insertBreakBetweenDigits(
-                  Math.round(nieruchomosc.cena / nieruchomosc.powierzchniaCalkowitaM2)
-                )}{' '}
-                PLN/m
-                <sup>2</sup>
-              </p>
             </div>
           </div>
         </div>
@@ -103,8 +94,8 @@ const EstatePageTemplate = props => {
           Wyszukiwarka
         </Link>
         <ButtonSecondary goTo="informacje" />
-        <ButtonSecondary goTo="lokalizacja" />
         <ButtonSecondary goTo="zdjęcia" />
+        <ButtonSecondary goTo="lokalizacja" />
         <ButtonSecondary goTo="opis" />
       </div>
       {/* Sections */}
@@ -166,39 +157,7 @@ const EstatePageTemplate = props => {
             </div>
           </EstateDetailsSection>
         </div>
-
-        <div className={estatePageStyles.contentContactAgent}>
-          <div className={estatePageStyles.agentHeader}>Skontaktuj się z agentem</div>
-          <div className={estatePageStyles.agentPhoto}>
-            <Img
-              className={estatePageStyles.img}
-              fluid={nieruchomosc.zdjecieAgenta.fluid}
-              alt={nieruchomosc.zdjecieAgenta.title}
-            />
-          </div>
-          <ul className={estatePageStyles.agentDetails}>
-            <li>
-              <div className={estatePageStyles.agentDetailIcon}>
-                <FaRegUser />
-              </div>
-              {nieruchomosc.imieINazwiskoAgenta}
-            </li>
-
-            <li>
-              <div className={estatePageStyles.agentDetailIcon}>
-                <FaMobileAlt />
-              </div>
-              {nieruchomosc.numerTelefonuAgenta}
-            </li>
-
-            <li>
-              <div className={estatePageStyles.agentDetailIcon}>
-                <FaRegEnvelope />
-              </div>
-              {nieruchomosc.emailAgenta}
-            </li>
-          </ul>
-        </div>
+        <ContactAgentBlock nieruchomosc={nieruchomosc} />
       </div>
     </Layout>
   )

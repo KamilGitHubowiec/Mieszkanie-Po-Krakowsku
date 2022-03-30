@@ -5,33 +5,46 @@
   padding-bottom: 2rem;
   background-color: $color-tetiary;
   color: #a3a3a3;
+
   .top {
     padding: 1rem 0.5rem;
     display: flex;
     flex-direction: row;
+
     @include respond(phone-wide) {
       flex-direction: column;
     }
+
     > * {
       margin-right: 5rem;
     }
+
     h3,
     h4 {
       color: $color-secondary;
       margin-bottom: 2rem;
     }
+
     .contactDetails > * {
       margin-bottom: 1rem;
     }
-    a:hover {
-      color: $color-primary;
-    }
-  }
-  .bottom {
-    padding: 4rem 0 2rem;
-    text-align: center;
-    &:hover {
-      color: $color-primary;
+
+    .instagram {
+      font-size: 1.8rem;
+
+      .instagramLink {
+        color: $color-primary;
+        display: flex;
+        align-items: center;
+
+        &:hover {
+          color: #01572DFF;
+        }
+      }
+
+      span {
+        margin-left: 1rem;
+      }
     }
   }
 }

@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+// import { Swiper, SwiperSlide } from 'swiper/react/swiper-react'
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi'
 import { Link } from 'gatsby'
 import Img from 'gatsby-image'
@@ -37,6 +38,31 @@ const SliderSmall = ({ images, linkTo }) => {
   }
 
   return (
+    // <Swiper
+    //   slidesPerView={1}
+    //   onSlideChange={() => console.log('slide change')}
+    //   onSwiper={swiper => console.log(swiper)}
+    //   loop
+    // >
+    //   {sliderArr.map(item => {
+    //     return (
+    //       <SwiperSlide>
+    //         <div
+    //           className={slider.slide}
+    //           style={{
+    //             transition: `${transition}`,
+    //             transform: `translateX(${x}%)`,
+    //           }}
+    //           onTransitionEnd={handleTransition}
+    //         >
+    //           <Link to={linkTo}>
+    //             <Img className={slider.img} fluid={item.fluid} alt={item.title} />
+    //           </Link>
+    //         </div>
+    //       </SwiperSlide>
+    //     )
+    //   })}
+    // </Swiper>
     <div className={slider.slider}>
       {sliderArr.map(item => {
         return (

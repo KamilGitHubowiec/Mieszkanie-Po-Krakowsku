@@ -3,15 +3,16 @@ import { RiSearch2Line } from 'react-icons/ri'
 import { HiFilter } from 'react-icons/hi'
 import { graphql, useStaticQuery } from 'gatsby'
 
-import wyszukiwarkaStyles from '../styles/wyszukiwarka.module.scss'
 import Layout from '../components/layout'
 import Head from '../components/head'
 import PostBlockView from '../components/postBlockView/postBlockView'
 
+import wyszukiwarkaStyles from '../styles/wyszukiwarka.module.scss'
+
 const Wyszukiwarka = () => {
   const data = useStaticQuery(graphql`
     query {
-      allContentfulNieruchomosc(sort: { fields: createdAt, order: ASC }) {
+      allContentfulNieruchomosc(sort: { fields: createdAt, order: DESC }) {
         edges {
           node {
             miasto
@@ -38,7 +39,9 @@ const Wyszukiwarka = () => {
     }
   `)
 
-  const nieruchomosci = data.allContentfulNieruchomosc.edges
+  const nieruchomosci = [...data.allContentfulNieruchomosc.edges].sort((a, b) => {
+    return b.node.aktualne - a.node.aktualne
+  })
   let filterDropdownAnimation = `${wyszukiwarkaStyles.filterDropdown} ${wyszukiwarkaStyles.pdngHz}`
   const [show, setShow] = useState(false)
   const [nieruchomosciArr, setNieruchomosciArr] = useState(nieruchomosci)
@@ -54,7 +57,7 @@ const Wyszukiwarka = () => {
       sorted = [...nieruchomosciArr].sort((a, b) => {
         const c = new Date(a.node[type.slice(0, -1)].toString())
         const d = new Date(b.node[type.slice(0, -1)])
-        return c - d
+        return d - c
       })
     } else if (type.slice(-1) === 'D') {
       sorted = [...nieruchomosciArr].sort(
@@ -228,7 +231,7 @@ const Wyszukiwarka = () => {
               )
             }
           />
-          <input style={{ display: 'none' }} type="submit"></input>
+          <input style={{ display: 'none' }} type='submit'/>
         </div>
       </form>
 
@@ -237,11 +240,8 @@ const Wyszukiwarka = () => {
         {/* Sort */}
         <div className={wyszukiwarkaStyles.sortBar}>
           <div>Ilość nieruchmości: {nieruchomosciArr.length}</div>
-          <div className={wyszukiwarkaStyles.dropdownListSort}>
-            <select
-              onChange={e => sortArray(e.target.value)}
-              className={wyszukiwarkaStyles.sortOptions}
-            >
+          <div>
+            <select onChange={e => sortArray(e.target.value)}>
               <option value="createdAtD">Nowości</option>
               <option value="cenaD">Najwyższa cena</option>
               <option value="cenaA">Najniższa cena</option>
@@ -251,10 +251,8 @@ const Wyszukiwarka = () => {
           </div>
         </div>
         {/* Results */}
-        <div className={wyszukiwarkaStyles.results}>
-          {nieruchomosciArr.map(edge => {
-            return <PostBlockView nieruchomosc={edge.node} />
-          })}
+        <div>
+          {nieruchomosciArr.map(edge => <PostBlockView nieruchomosc={edge.node} />)}
         </div>
       </div>
     </Layout>

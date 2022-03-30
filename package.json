@@ -1,7 +1,6 @@
 {
   "name": "mieszkanie-po-krakowsku",
   "private": true,
-  "description": "Kraków real estate blog",
   "version": "0.1.0",
   "license": "0BSD",
   "scripts": {
@@ -32,7 +31,8 @@
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-helmet": "^6.1.0",
-    "react-icons": "^4.1.0"
+    "react-icons": "^4.1.0",
+    "swiper": "^8.0.7"
   },
   "devDependencies": {
     "env-cmd": "^10.1.0",

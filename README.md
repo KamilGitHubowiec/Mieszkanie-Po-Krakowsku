@@ -1,11 +1,3 @@
-<!-- TO DO
-  1. Outsource graphql queries to separate file
-  2. Style footer
-  3. Add slider to the post template
-  4. Keep styles with js files in separate folders just as in regular react app
-  5. MAKE IT RESPONSIVE
- -->
-
 <!-- AUTO-GENERATED-CONTENT:START (STARTER) -->
 <p align="center">
   <a href="https://www.gatsbyjs.com">

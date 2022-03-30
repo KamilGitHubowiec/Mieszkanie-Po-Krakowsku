@@ -1,89 +1,69 @@
 import React from 'react'
-import { graphql, useStaticQuery, Link } from 'gatsby'
+import { Link } from 'gatsby'
 import { FiCameraOff } from 'react-icons/fi'
 
-import recentBlogPost from './postGridView.module.scss'
-import SliderSmall from '../sliderSmall/sliderSmall'
+import { useFetchEstates } from './use-fetch-estates'
 import { insertBreakBetweenDigits } from '../functions'
+import SliderSmall from '../sliderSmall/sliderSmall'
+
+import styles from './postGridView.module.scss'
+
+const ESTATES_TO_DISPLAY = 6
 
 const PostGridView = () => {
-  const data = useStaticQuery(graphql`
-    query {
-      allContentfulNieruchomosc(sort: { fields: createdAt, order: ASC }) {
-        edges {
-          node {
-            miasto
-            dzielnica
-            ulica
-            cena
-            powierzchniaCalkowitaM2
-            id
-            aktualne
-            zdjecia {
-              fluid {
-                ...GatsbyContentfulFluid
-              }
-              title
-            }
-          }
-        }
-      }
+  const data = useFetchEstates()
+
+  const renderAvailabilityTag = available => {
+    if (available) {
+      return (
+        <span className={styles.isAvailableTag} style={{ backgroundColor: '#00ab58' }}>
+          Aktualne
+        </span>
+      )
     }
-  `)
+
+    return (
+      <span className={styles.isAvailableTag} style={{ backgroundColor: 'red' }}>
+        Sprzedane
+      </span>
+    )
+  }
 
   return (
-    <div className={`${recentBlogPost.recentBlogPost} ${recentBlogPost.pdngHz}`}>
+    <div className={`${styles.recentBlogPost} ${styles.pdngHz}`}>
       <h2>Ostatnio dodane nieruchmości</h2>
-      <div className={recentBlogPost.posts}>
-        {data.allContentfulNieruchomosc.edges.slice(0, 6).map(edge => {
+      <div className={styles.posts}>
+        {data.allContentfulNieruchomosc.edges.slice(0, ESTATES_TO_DISPLAY).map(edge => {
           return (
-            <div className={recentBlogPost.post}>
+            <div className={styles.post}>
               {edge.node.zdjecia ? (
-                <div className={recentBlogPost.img}>
+                <div className={styles.img}>
                   <SliderSmall
                     images={edge.node.zdjecia}
                     linkTo={`/nieruchomosc/${edge.node.id}/${edge.node.miasto}/${edge.node.ulica}`}
                   />
-                  {edge.node.aktualne ? (
-                    <span
-                      className={recentBlogPost.isAvailableTag}
-                      style={{ backgroundColor: '#00ab58' }}
-                    >
-                      Aktualne
-                    </span>
-                  ) : (
-                    <span
-                      className={recentBlogPost.isAvailableTag}
-                      style={{ backgroundColor: 'red' }}
-                    >
-                      Sprzedane
-                    </span>
-                  )}
+                  {renderAvailabilityTag(edge.node.aktualne)}
                 </div>
               ) : (
-                <div className={recentBlogPost.img}>
+                <div className={styles.img}>
                   <FiCameraOff />
                 </div>
               )}
-              <div className={recentBlogPost.detailsWrapper}>
+              <div className={styles.detailsWrapper}>
                 <h3>
                   <Link to={`/nieruchomosc/${edge.node.id}/${edge.node.miasto}/${edge.node.ulica}`}>
                     {edge.node.miasto} {edge.node.dzielnica && '/ ' + edge.node.dzielnica}
                   </Link>
                 </h3>
                 <h4> {edge.node.ulica} </h4>
-                <div className={recentBlogPost.description}>
+                <div className={styles.description}>
                   <p>
                     {insertBreakBetweenDigits(edge.node.cena)}
                     <span>PLN</span>
                   </p>
                   <p>
-                    {insertBreakBetweenDigits(
-                      Math.round(edge.node.cena / edge.node.powierzchniaCalkowitaM2)
-                    )}
-                    <span>
-                      PLN/m<sup>2</sup>
-                    </span>
+                    {edge.node.liczbaPokoi}
+                    <span> - ilość pokoi</span>
                   </p>
                   <p>
                     {edge.node.powierzchniaCalkowitaM2}{' '}
@@ -98,7 +78,7 @@ const PostGridView = () => {
         })}
       </div>
 
-      <Link className={recentBlogPost.showMore} to="/wyszukiwarka">
+      <Link className={styles.showMore} to="/wyszukiwarka">
         Zobacz więcej
       </Link>
     </div>

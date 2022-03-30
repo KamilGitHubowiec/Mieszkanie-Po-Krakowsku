@@ -1,40 +1,30 @@
 import React from 'react'
-import { graphql, useStaticQuery, Link } from 'gatsby'
+import { Link } from 'gatsby'
 
-import footer from './footer.module.scss'
+import { GrInstagram } from 'react-icons/gr'
 
-const Footer = () => {
-  const data = useStaticQuery(graphql`
-    query {
-      site {
-        siteMetadata {
-          author
-        }
-      }
-    }
-  `)
+import styles from './footer.module.scss'
 
-  return (
-    <div className={`${footer.footer} ${footer.pdngHz}`}>
-      <div className={footer.top}>
+const Footer = () =>
+  (
+    <div className={`${styles.footer} ${styles.pdngHz}`}>
+      <div className={styles.top}>
         <h3>MIESZKANIE PO KRAKOWSKU</h3>
-        <div className={footer.contactDetails}>
+        <div className={styles.contactDetails}>
           <h4>Skontakuj się z nami:</h4>
           <p>736 848 567</p>
           <p>mieszkaniepokrakowsku@gmail.com</p>
           <p>Pon - Sob od 09:00 do 20:00</p>
         </div>
-        <Link to="https://www.instagram.com/mieszkanie_po_krakowsku/" target="_blank">
-          Instagram
-        </Link>
-      </div>
-      <div className={footer.bottom}>
-        <Link to="https://www.linkedin.com/in/kamil-góralewicz-03964a15b" target="_blank">
-          Copyright {data.site.siteMetadata.author}, © 2021
-        </Link>
+        <div className={styles.instagram} >
+          <Link className={styles.instagramLink} to='https://www.instagram.com/mieszkanie_po_krakowsku/' target='_blank'>
+            <GrInstagram />
+            <span>Instagram</span>
+          </Link>
+        </div>
       </div>
     </div>
   )
-}
+
 
 export default Footer

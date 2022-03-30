@@ -58,13 +58,6 @@ const PostBlockView = ({ nieruchomosc }) => {
             <SingleDetail detail={detail} />
           ))}
         </ul>
-
-        <div className={postBlockViewStyles.shortDescription}>
-          <p className={postBlockViewStyles.stylemebitch}>
-            <span>{nieruchomosc.krotkiOpis && nieruchomosc.krotkiOpis[0]}</span>
-            {nieruchomosc.krotkiOpis && nieruchomosc.krotkiOpis.slice(1, 180) + ' [...]'}
-          </p>
-        </div>
       </div>
 
       <div className={postBlockViewStyles.priceAndButton}>
