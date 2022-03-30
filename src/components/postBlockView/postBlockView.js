@@ -65,14 +65,6 @@ const PostBlockView = ({ nieruchomosc }) => {
           <h3>
             {insertBreakBetweenDigits(nieruchomosc.cena)} <span>PLN</span>
           </h3>
-          <p>
-            {insertBreakBetweenDigits(
-              Math.round(nieruchomosc.cena / nieruchomosc.powierzchniaCalkowitaM2)
-            )}{' '}
-            <span>
-              PLN/m<sup>2</sup>
-            </span>
-          </p>
         </div>
         <Link
           className={postBlockViewStyles.buttonLink}
